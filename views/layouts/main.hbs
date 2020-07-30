@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{title}}</title>
+</head>
+<body>
+	<div class="container">
+		{{{ body }}}
+	</div>
+	{{#if webpackAssets.js}}
+		<script src="{{webpackAssets.js}}"></script>
+	{{/if}}
+</body>
+</html>
