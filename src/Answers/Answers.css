@@ -1,0 +1,63 @@
+.answer-list td {
+	height: 60px;
+}
+
+.answer-item-switch,
+.answer-item-delete {
+	width: 60px;
+}
+.answer-item-type,
+.answer-item-text {
+	width: 125px;
+}
+.answer-item-type .select-wrapper {
+	width: 95px;
+}
+.answer-item-type .select-wrapper input.select-dropdown {
+	margin: -11px 0 -12px;
+	font-size: 15px;
+}
+.answer-item-text input[type=text]:not(.browser-default) {
+	width: 100px !important;
+}
+.answer-item-text input[type=text]:not(.browser-default),
+.answer-item-answer input[type=text]:not(.browser-default) {
+	margin: -11px 0 -11px;
+	font-size: 15px;
+}
+.answer-item-text .z-depth-3,
+.answer-item-answer .z-depth-3 {
+	margin-left: -.5rem;
+	background-color: #fff;
+	padding: 1.5rem .5rem;
+}
+.answer-item-channels,
+.answer-item-users {
+	width: 150px;
+}
+.answer-item-channels .z-depth-3,
+.answer-item-users  .z-depth-3 {
+	position: absolute;
+	margin: -33px 0 0 0;
+	background-color: #fff;
+	padding: 2px 8px;
+}
+.answer-item-channels .z-depth-3 .input-field,
+.answer-item-users  .z-depth-3 .input-field {
+	margin: .5rem 0;
+	min-width: 139px;
+}
+.answer-item-delete {
+	cursor: pointer;
+}
+
+.add-answer-btn {
+	float: right;
+}
+
+
+#toast-container {
+  top: auto !important;
+  right: 20px !important;
+  bottom: 20px;
+}

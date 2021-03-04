@@ -1,0 +1,9 @@
+.hover-component--container .hover-component--has-hover,
+.hover-component--container:hover .hover-component--no-hover,
+.hover-component--container.has-focus .hover-component--no-hover {
+	display: none;
+}
+.hover-component--container:hover .hover-component--has-hover,
+.hover-component--container.has-focus .hover-component--has-hover {
+	display: inline;
+}

@@ -3,3 +3,4 @@ site.iml
 node_modules
 public/build
 webpack-assets.json
+data
