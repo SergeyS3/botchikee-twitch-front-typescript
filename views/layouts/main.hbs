@@ -5,6 +5,9 @@
 	<title>{{title}}</title>
 </head>
 <body>
+	{{#if webpackAssets.css}}
+		<link rel="stylesheet" href="{{webpackAssets.css}}">
+	{{/if}}
 	<div class="container">
 		{{{ body }}}
 	</div>

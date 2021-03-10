@@ -1,7 +1,7 @@
 import React from 'react'
-const Tools = require('../tools/Tools')
+import Tools from "../tools/Tools";
 import AnswerItem from './AnswerItem'
-import {MaterializePreloader} from '../react_components/MaterializePreloader'
+import MaterializePreloader from '../react_components/MaterializePreloader'
 
 import './Answers.css'
 

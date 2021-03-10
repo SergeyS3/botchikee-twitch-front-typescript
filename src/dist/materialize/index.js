@@ -1,3 +1,7 @@
-import './materialize.min.css'
+
+import './sass/materialize.scss';
 import './materialize.icons.css'
-import './materialize.min'
+
+import './js/chips'
+import './js/select'
+import './js/toasts'
