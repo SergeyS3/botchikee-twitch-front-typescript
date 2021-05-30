@@ -1,44 +1,50 @@
-import React from 'react'
-import {Hover, HoverActive, HoverInactive} from '../react_components/Hover'
+import React, { useState } from 'react'
+import { Hover, HoverActive, HoverInactive } from '../react_components/Hover'
 import MaterializeSwitch from '../react_components/MaterializeSwitch'
 import MaterializeSelect from '../react_components/MaterializeSelect'
 import MaterializeChips from '../react_components/MaterializeChips'
 
-const List = ({list, active}) => 
+const List = ({ list, active }) => 
 	list.length
 		? list.join(', ')
 		: <div className={`grey-text text-${active ? 'darken' : 'lighten'}-1`}>*all*</div>
 
-export default function AnswerItem(props) {
-	let {id, active, type, text, answer, channels, users} = props.answer
+export default props => {
+	const [answer, setAnswer] = useState(props.answer)
+	const [focusedCol, setFocusedCol] = useState('')
 	
-	const [focusedCol, setFocusedCol] = React.useState(''),
-		setVal = (key, newVal) => {
-			const curVal = props.answer[key]
+	const setVal = (key, newVal) => {
+		setAnswer(answer => {
+			const curVal = answer[key]
+			answer[key] = newVal
 			
 			if((newVal || key == 'active') && curVal.toString() != newVal.toString())
-				props.onChange({...props.answer, [key]: newVal})
-			setFocusedCol('')
-		},
-		chipsAutocompleteOptions = {
-			data: props.knownUsers.reduce((acc, user) => (acc[user] = null, acc), {}),
-			limit: Infinity,
-			minLength: 1
-		}
+				props.onChange(answer)
+			
+			return answer
+		})
+		setFocusedCol('')
+	}
+	
+	const chipsAutocompleteOptions = {
+		data: props.knownUsers.reduce((acc, user) => (acc[user] = null, acc), {}),
+		limit: Infinity,
+		minLength: 1
+	}
 	
 	return (
-		<tr className={active ? '' : 'grey-text text-lighten-1'}>
+		<tr className={answer.active ? '' : 'grey-text text-lighten-1'}>
 			<td className="answer-item-switch">
-				<MaterializeSwitch disabled={!id} defaultChecked={active} onChange={e => setVal('active', e.target.checked)} />
+				<MaterializeSwitch disabled={!answer.id} defaultChecked={answer.active} onChange={e => setVal('active', e.target.checked)} />
 			</td>
 			<td className="answer-item-type">
 				<Hover hasFocus={focusedCol == 'type'}>
 					<HoverInactive>
-						{type}
+						{answer.type}
 					</HoverInactive>
 					<HoverActive>
 						<MaterializeSelect
-							defaultValue={type}
+							defaultValue={answer.type}
 							options={[
 								{value: 'command', text: 'command'},
 								{value: 'message', text: 'message'},
@@ -50,16 +56,16 @@ export default function AnswerItem(props) {
 					</HoverActive>
 				</Hover>
 			</td>
-			<td className={`answer-item-text ${text ? '' : 'red-text text-accent-2'}`}>
+			<td className={`answer-item-text ${answer.text ? '' : 'red-text text-accent-2'}`}>
 				<Hover hasFocus={focusedCol == 'text'}>
 					<HoverInactive>
-						{text || '*enter text*'}
+						{answer.text || '*enter text*'}
 					</HoverInactive>
 					<HoverActive>
 						<span className="z-depth-3">
 							<input
 								type="text"
-								defaultValue={text}
+								defaultValue={answer.text}
 								onFocus={() => setFocusedCol('text')}
 								onBlur={e => setVal('text', e.target.value)}
 							/>
@@ -67,16 +73,16 @@ export default function AnswerItem(props) {
 					</HoverActive>
 				</Hover>
 			</td>
-			<td className={`answer-item-answer ${answer ? '' : 'red-text text-accent-2'}`}>
+			<td className={`answer-item-answer ${answer.answer ? '' : 'red-text text-accent-2'}`}>
 				<Hover hasFocus={focusedCol == 'answer'}>
 					<HoverInactive>
-						{answer || '*enter answer*'}
+						{answer.answer || '*enter answer*'}
 					</HoverInactive>
 					<HoverActive>
 						<span className="z-depth-3">
 							<input
 								type="text"
-								defaultValue={answer}
+								defaultValue={answer.answer}
 								onFocus={() => setFocusedCol('answer')}
 								onBlur={e => setVal('answer', e.target.value)}
 							/>
@@ -87,12 +93,12 @@ export default function AnswerItem(props) {
 			<td className="answer-item-channels">
 				<Hover hasFocus={focusedCol == 'channels'}>
 					<HoverInactive>
-						<List list={channels} active={active} />
+						<List list={answer.channels} active={answer.active} />
 					</HoverInactive>
 					<HoverActive>
 						<span className="z-depth-3">
 							<MaterializeChips
-								items={channels}
+								items={answer.channels}
 								onFocus={() => setFocusedCol('channels')}
 								onBlur={channels => setVal('channels', channels)}
 								autocompleteOptions={chipsAutocompleteOptions}
@@ -104,12 +110,12 @@ export default function AnswerItem(props) {
 			<td className="answer-item-users">
 				<Hover hasFocus={focusedCol == 'users'}>
 					<HoverInactive>
-						<List list={users} active={active} />
+						<List list={answer.users} active={answer.active} />
 					</HoverInactive>
 					<HoverActive>
 						<span className="z-depth-3">
 							<MaterializeChips
-								items={users}
+								items={answer.users}
 								onFocus={() => setFocusedCol('users')}
 								onBlur={users => setVal('users', users)}
 								autocompleteOptions={chipsAutocompleteOptions}

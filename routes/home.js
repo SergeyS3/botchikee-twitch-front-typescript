@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const {Router} = require('express')
+const { Router } = require('express')
 const router = Router()
 
 router.get('/', async (req, res) => {

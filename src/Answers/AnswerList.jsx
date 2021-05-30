@@ -1,26 +1,19 @@
-import React from 'react'
-import Tools from "../tools/Tools";
+import React, { useState, useEffect } from 'react'
+import Tools from '../tools/Tools'
 import AnswerItem from './AnswerItem'
 import MaterializePreloader from '../react_components/MaterializePreloader'
+import MaterializeBtn from '../react_components/MaterializeBtn'
 
 import './Answers.css'
 
 const apiUrl = '/api/answers'
 
-export default class AnswerList extends React.Component {
-	constructor(props) {
-		super(props)
-		
-		this.state = {answers: []}
-		
-		this.addBtnRef = React.createRef()
-		
-		this.addAnswer = this.addAnswer.bind(this)
-		this.changeAnswer = this.changeAnswer.bind(this)
-		this.removeAnswer = this.removeAnswer.bind(this)
-	}
-	addAnswer() {
-		this.state.answers.push({
+export default () => {
+	let [answers, setAnswers] = useState([])
+	let [isReady, setIsReady] = useState(false)
+	
+	const addAnswer = () => {
+		answers.push({
 			tmpId: +new Date(),
 			active: false,
 			type: 'command',
@@ -29,17 +22,9 @@ export default class AnswerList extends React.Component {
 			channels: [],
 			users: []
 		})
-		this.setState(this.state)
+		setAnswers([...answers])
 	}
-	async changeAnswer(answer) {
-		const setAnswers = () => {
-			const answerIndex = this.state.answers.findIndex(a => a.id == answer.id)
-			this.state.answers[answerIndex] = answer
-			this.setState(this.state)
-		}
-		setAnswers()
-		
-		
+	const changeAnswer = async answer => {
 		if(answer.text && answer.answer)
 			if(answer.id) {
 				const res = await Tools.fetch(`${apiUrl}/${answer.id}`, 'PUT', answer)
@@ -55,16 +40,23 @@ export default class AnswerList extends React.Component {
 				if(res.status != 201)
 					M.toast({html: 'answer not added'})
 				else {
-					Object.assign(answer, await res.json())
-					setAnswers()
+					answer.id = (await res.json()).id
+					
+					setAnswers(prevAnswers => {
+						const answerIndex = prevAnswers.findIndex(a => a.tmpId == answer.tmpId)
+						prevAnswers[answerIndex] = answer
+						
+						return JSON.parse(JSON.stringify(prevAnswers))
+					})
+					
 					M.toast({html: 'answer added'})
 				}
 			}
 	}
-	async removeAnswer(answer) {
-		const setAnswers = answers => {
-			this.state.answers = this.state.answers.filter(a => answer.id ? a.id != answer.id : a.tmpId != answer.tmpId)
-			this.setState(this.state)
+	const removeAnswer = async answer => {
+		const setAnswer = () => {
+			answers = answers.filter(a => a != answer)
+			setAnswers(answers)
 		}
 		
 		if(answer.id) {
@@ -73,59 +65,58 @@ export default class AnswerList extends React.Component {
 			if(res.status != 200)
 				M.toast({html: 'answer not deleted'})
 			else {
-				setAnswers()
+				setAnswer()
 				M.toast({html: 'answer deleted'})
 			}
 		}
 		else
-			setAnswers()
+			setAnswer()
 	}
-	render() {
-		return (
-			<div className="answer-list">
-				<h4>Answers</h4>
-				{this.state.isReady ? (
-					<>
-						<table>
-							<tbody>
-								<tr>
-									<th/>
-									<th>Type</th>
-									<th>Text</th>
-									<th>Answer</th>
-									<th>Channels</th>
-									<th>Users</th>
-									<th/>
-								</tr>
-								{this.state.answers.map(answer => {
-									return <AnswerItem answer={answer} key={answer.id || answer.tmpId} onChange={this.changeAnswer} onRemove={this.removeAnswer} knownUsers={this.knownUsers} />
-								})}
-							</tbody>
-						</table>
-						<br/>
-						<a className="btn-floating btn-large scale-transition scale-out add-answer-btn" onClick={this.addAnswer} ref={this.addBtnRef}>
-							<i className="material-icons">add</i>
-						</a>
-					</>
-				) : (
-					<MaterializePreloader />
-				)}
-			</div>
-		)
-	}
-	async componentDidMount() {
-		this.knownUsers = ['airchikee']
-		
-		const res = await fetch(apiUrl)
-		this.state.answers = await res.json()
-		
-		this.state.isReady = true
-		
-		this.setState(this.state)
-		
-		
-		setTimeout(() =>
-			this.addBtnRef.current.classList.add('scale-in')
-		, 1)
-	}
+	
+	const knownUsers = ['airchikee']
+	
+	useEffect(() => {
+		(async () => {
+			const res = await fetch(apiUrl)
+			answers = await res.json()
+			
+			setAnswers(answers)
+			setIsReady(true)
+		})()
+	}, [])
+	
+	return (
+		<div className="answer-list">
+			<h4>Answers</h4>
+			{isReady ?
+				<>
+					<table>
+						<tbody>
+							<tr>
+								<th/>
+								<th>Type</th>
+								<th>Text</th>
+								<th>Answer</th>
+								<th>Channels</th>
+								<th>Users</th>
+								<th/>
+							</tr>
+							{answers.map(answer => {
+								return <AnswerItem
+									answer={answer}
+									key={answer.id || answer.tmpId}
+									onChange={changeAnswer}
+									onRemove={removeAnswer}
+									knownUsers={knownUsers}
+								/>
+							})}
+						</tbody>
+					</table>
+					<MaterializeBtn className="add-answer-btn" onClick={addAnswer} />
+				</>
+			:
+				<MaterializePreloader />
+			}
+		</div>
+	)
 }

@@ -33,10 +33,8 @@ app.use('/', homeRoutes)
 
 app.use(errorHandler)
 
-;(async function() {
-	try {
-		app.listen(port)
-	} catch (e) {
-		console.error(e)
-	}
-})()
+try {
+	app.listen(port)
+} catch (e) {
+	console.error(e)
+}

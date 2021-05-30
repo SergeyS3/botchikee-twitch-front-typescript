@@ -1,24 +1,17 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 
-export default class MaterializeChips extends React.Component {
-	constructor(props) {
-		super(props)
-		
-		this.chipsRef = React.createRef()
-	}
-	render() {
-		return <div className="chips chips-initial" ref={this.chipsRef} />
-	}
-	componentDidMount() {
+export default props => {
+	let chipsRef = useRef()
+	
+	useEffect(() => {
 		let chips
 		const params = {
-				data: this.props.items.map(i => ( {tag: i} )),
-				autocompleteOptions: this.props.autocompleteOptions || {}
-			},
-			initChips = () => chips = M.Chips.init(this.chipsRef.current, params)
+			data: props.items.map(i => ( {tag: i} )),
+			autocompleteOptions: props.autocompleteOptions || {}
+		}
+		const initChips = () => chips = M.Chips.init(chipsRef.current, params)
 		
-		if(this.props.onBlur || this.props.onFocus) {
-			const getValues = () => chips.chipsData.map(c => c.tag)
+		if(props.onBlur || props.onFocus) {
 			const onFocusStart = () => {
 				chips.$input[0].removeEventListener('focus', onFocusStart)
 				document.addEventListener('mouseup', onFocusEnd)
@@ -27,16 +20,16 @@ export default class MaterializeChips extends React.Component {
 				document.removeEventListener('mouseup', onFocusEnd)
 				setTimeout(() => document.addEventListener('click', onBlur), 1)
 				
-				this.props.onFocus && this.props.onFocus(getValues())
+				props.onFocus && props.onFocus()
 			}
 			const onBlur = e => {
-				if(e.path.includes(this.chipsRef.current))
+				if(e.path.includes(chipsRef.current))
 					return
 				
 				document.removeEventListener('click', onBlur)
 				chips.$input[0].addEventListener('focus', onFocusStart)
 				
-				this.props.onBlur && this.props.onBlur(getValues())
+				props.onBlur && props.onBlur(chips.chipsData.map(c => c.tag))
 			}
 			params.onChipDelete = onFocusEnd
 			
@@ -45,5 +38,7 @@ export default class MaterializeChips extends React.Component {
 		}
 		else
 			initChips()
-	}
+	}, [])
+	
+	return <div className="chips chips-initial" ref={chipsRef} />
 }

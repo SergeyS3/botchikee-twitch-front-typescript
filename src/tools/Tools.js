@@ -1,5 +1,5 @@
 
-class Tools{
+class Tools {
 	static async fetch(url, method, data = {}) {
 		try {
 			return await fetch(url, {
