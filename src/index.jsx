@@ -4,4 +4,4 @@ import App from './App'
 
 import './dist/materialize'
 
-render(<App />, document.getElementById('app'))
+render(<App />, document.body.appendChild(document.createElement('div')))
