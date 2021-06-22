@@ -7,6 +7,7 @@ module.exports = createProxyMiddleware({
 	logLevel: 'warn',
 	auth: keys.BOTCHIKEE_AUTH,
 	pathRewrite: {
+		'^/api/modules': '/modules',
 		'^/api/answers': '/answers',
 	}
 })

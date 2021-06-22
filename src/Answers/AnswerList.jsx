@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Tools from '../tools/Tools'
 import AnswerItem from './AnswerItem'
-import MaterializePreloader from '../react_components/MaterializePreloader'
-import MaterializeBtn from '../react_components/MaterializeBtn'
+import MaterializePreloader from '../react_components/materialize/Preloader'
+import MaterializeBtn from '../react_components/materialize/Btn'
 
-import './Answers.css'
+import '../styles.css'
 
 const apiUrl = '/api/answers'
 
@@ -46,7 +46,7 @@ export default () => {
 						const answerIndex = prevAnswers.findIndex(a => a.tmpId == answer.tmpId)
 						prevAnswers[answerIndex] = answer
 						
-						return JSON.parse(JSON.stringify(prevAnswers))
+						return [...prevAnswers]
 					})
 					
 					M.toast({html: 'answer added'})
@@ -86,7 +86,7 @@ export default () => {
 	}, [])
 	
 	return (
-		<div className="answer-list">
+		<div className="table-items-list">
 			<h4>Answers</h4>
 			{isReady ?
 				<>
