@@ -35,30 +35,25 @@ export default () => {
 	return (
 		<div className="table-items-list">
 			<h4>Modules</h4>
-			{isReady ?
-				<>
-					<table className="module-list">
-						<tbody>
-							<tr>
-								<th/>
-								<th>Name</th>
-								<th>Channels</th>
-							</tr>
-							{modules.map(module => {
-								return <ModuleItem
-									module={module}
-									key={module.id}
-									onChange={changeModule}
-									knownUsers={knownUsers}
-								/>
-							})}
-						</tbody>
-					</table>
-					<br/>
-				</>
-			: 
-				<MaterializePreloader />
-			}
+			<MaterializePreloader ready={isReady}>
+				<table className="module-list">
+					<tbody>
+						<tr>
+							<th/>
+							<th>Name</th>
+							<th>Channels</th>
+						</tr>
+						{modules.map(module => {
+							return <ModuleItem
+								module={module}
+								key={module.id}
+								onChange={changeModule}
+								knownUsers={knownUsers}
+							/>
+						})}
+					</tbody>
+				</table>
+			</MaterializePreloader>
 		</div>
 	)
 }

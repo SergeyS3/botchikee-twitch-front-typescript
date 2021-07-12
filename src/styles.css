@@ -61,3 +61,12 @@
   right: 20px !important;
   bottom: 20px;
 }
+
+.nav-wrapper li {
+	margin: 0 3px;
+}
+.nav-wrapper .avatar {
+	width: 36px;
+	border-radius: 50%;
+	margin-top: 14px;
+}

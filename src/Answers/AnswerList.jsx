@@ -88,35 +88,31 @@ export default () => {
 	return (
 		<div className="table-items-list">
 			<h4>Answers</h4>
-			{isReady ?
-				<>
-					<table>
-						<tbody>
-							<tr>
-								<th/>
-								<th>Type</th>
-								<th>Text</th>
-								<th>Answer</th>
-								<th>Channels</th>
-								<th>Users</th>
-								<th/>
-							</tr>
-							{answers.map(answer => {
-								return <AnswerItem
-									answer={answer}
-									key={answer.id || answer.tmpId}
-									onChange={changeAnswer}
-									onRemove={removeAnswer}
-									knownUsers={knownUsers}
-								/>
-							})}
-						</tbody>
-					</table>
-					<MaterializeBtn className="add-answer-btn" onClick={addAnswer} />
-				</>
-			:
-				<MaterializePreloader />
-			}
+			<MaterializePreloader ready={isReady}>
+				<table>
+					<tbody>
+						<tr>
+							<th/>
+							<th>Type</th>
+							<th>Text</th>
+							<th>Answer</th>
+							<th>Channels</th>
+							<th>Users</th>
+							<th/>
+						</tr>
+						{answers.map(answer => {
+							return <AnswerItem
+								answer={answer}
+								key={answer.id || answer.tmpId}
+								onChange={changeAnswer}
+								onRemove={removeAnswer}
+								knownUsers={knownUsers}
+							/>
+						})}
+					</tbody>
+				</table>
+				<MaterializeBtn className="add-answer-btn" onClick={addAnswer} />
+			</MaterializePreloader>
 		</div>
 	)
 }
