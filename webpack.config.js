@@ -89,7 +89,7 @@ module.exports = (env, argv) => {
 					extractComments: 'false',
 				}),
 			],
-		};
+		}
 	}
 	
 	return config

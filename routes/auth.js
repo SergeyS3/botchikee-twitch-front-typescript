@@ -1,48 +1,9 @@
 const { Router } = require('express')
 const router = Router()
-const fetch = require('node-fetch');
-const querystring = require('querystring');
-const { client_id, client_secret, redirect_uri } = require('../data/keys').twitch
+const { client_id, redirect_uri } = require('../data/keys').twitch
 const users = require('../data/users')
-
-const getTwitchToken = async query => {
-	if(!query.code && query.error)
-		throw Error(`getTwitchToken ${query.error} error: ${query.error_description}`)
-	
-	const res = await fetch('https://id.twitch.tv/oauth2/token?' + querystring.stringify({
-		client_id,
-		client_secret,
-		code: query.code,
-		grant_type: 'authorization_code',
-		redirect_uri
-	}), {
-		method: 'POST'
-	})
-	
-	const data = await res.json()
-	
-	if(res.status !== 200)
-		throw Error(`getTwitchToken error: ${res.status} ${data.message}`)
-	
-	return data.access_token
-}
-const getTwitchUser = async query => {
-	const token = await getTwitchToken(query)
-	
-	const res = await fetch('https://api.twitch.tv/helix/users', {
-		headers: {
-			Authorization: `Bearer ${token}`,
-			'Client-Id': client_id
-		},
-	})
-	
-	const data = await res.json()
-	
-	if(res.status !== 200)
-		throw Error(`getTwitchUser error: ${res.status} ${data.message}`)
-	
-	return data.data[0]
-}
+const Twitch = require('../tools/twitch')
+const debug = require('debug')('auth')
 
 router.get('/', (req, res) => {
 	const twitchData = req.session.twitch
@@ -61,7 +22,8 @@ router.get('/', (req, res) => {
 
 router.get('/login', async (req, res) => {
 	try {
-		req.session.twitch = await getTwitchUser(req.query)
+		req.session.twitch = await Twitch.getUser(req.query)
+		debug(`${req.session.twitch?.login} logged in`)
 		res.redirect('/')
 	}
 	catch (e) {
@@ -71,6 +33,7 @@ router.get('/login', async (req, res) => {
 })
 
 router.get('/logout', async (req, res) => {
+	debug(`${req.session.twitch?.login} logged out`)
 	req.session.twitch = null
 	res.redirect('/')
 })
