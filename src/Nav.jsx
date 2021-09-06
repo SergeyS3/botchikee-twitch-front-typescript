@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { AuthContext } from './App';
+import React from 'react'
 import { Link } from "react-router-dom";
 
 export default ({ OAuthData: { client_id, redirect_uri }, user }) => {

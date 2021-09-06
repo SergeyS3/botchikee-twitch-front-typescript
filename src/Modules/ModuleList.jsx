@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Tools from '../tools/Tools'
+import BackBtn from '../react_components/BackBtn';
 import ModuleItem from './ModuleItem'
 import MaterializePreloader from '../react_components/materialize/Preloader'
 
@@ -34,6 +35,7 @@ export default () => {
 	
 	return (
 		<div className="table-items-list">
+			<BackBtn/>
 			<h4>Modules</h4>
 			<MaterializePreloader ready={isReady}>
 				<table className="module-list">

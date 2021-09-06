@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import Switch from '../react_components/table_cols/Switch'
-import Select from '../react_components/table_cols/Select';
-import Text from '../react_components/table_cols/Text';
-import Chips from '../react_components/table_cols/Chips'
+import Switch from '../../react_components/table_cols/Switch'
+import Select from '../../react_components/table_cols/Select';
+import Text from '../../react_components/table_cols/Text';
+import Chips from '../../react_components/table_cols/Chips'
 
 export default props => {
 	const [answer, setAnswer] = useState(props.answer)

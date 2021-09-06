@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import MaterializeSwitch from '../react_components/materialize/Switch'
 import { Link } from 'react-router-dom'
 import Chips from '../react_components/table_cols/Chips';
 import Switch from "../react_components/table_cols/Switch";
