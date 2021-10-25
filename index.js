@@ -2,9 +2,13 @@ const express = require('express')
 const path = require('path')
 const compression = require('compression')
 const session = require('express-session')
+const MongoStore = require('connect-mongo')
+
 const { secret } = require('./data/keys').express
 
-const apiMiddleware = require('./middleware/api')
+const apiRateLimiter = require('./middleware/apiRateLimiter')
+const authMiddleware = require('./middleware/auth')
+const apiProxyMiddleware = require('./middleware/apiProxy')
 const errorHandler = require('./middleware/error')
 
 const homeRoutes = require('./routes/home')
@@ -20,10 +24,14 @@ app.use(session({
 	name: 'botchikee-front',
 	secret,
 	saveUninitialized: true,
-	resave: false
-}));
+	resave: false,
+	store: new MongoStore({
+		mongoUrl: 'mongodb://localhost/botchikee-front',
+		ttl: 3600 * 24 * 365 * 2
+	})
+}))
 
-app.use('/api', apiMiddleware)
+app.use('/api', apiRateLimiter, authMiddleware, apiProxyMiddleware)
 
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
