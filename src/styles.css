@@ -46,11 +46,12 @@
 	margin: .5rem 0;
 	min-width: 139px;
 }
-.table-item-delete {
+
+.item-delete {
 	cursor: pointer;
 }
 
-.add-answer-btn {
+.table-item-add-btn {
 	float: right;
 	margin-top: 20px;
 }

@@ -1,41 +1,29 @@
 import React, { useState, useEffect } from 'react'
-import Tools from '../tools/Tools'
-import BackBtn from '../react_components/BackBtn';
+import ItemListActions from '../tools/item-actions/ItemListActions'
+import { Helmet } from 'react-helmet'
 import ModuleItem from './ModuleItem'
-import MaterializePreloader from '../react_components/materialize/Preloader'
-
-import '../styles.css'
-
-const apiUrl = '/api/modules'
+import MaterializePreloader from '../react-components/materialize/Preloader'
 
 export default () => {
 	let [modules, setModules] = useState([])
 	let [isReady, setIsReady] = useState(false)
 	
-	const changeModule = async module => {
-		const res = await Tools.fetch(`${apiUrl}/${module.id}`, 'PUT', module)
-		
-		if(res.status != 200)
-			M.toast({html: 'module not saved'})
-		else
-			M.toast({html: 'module saved'})
+	const itemListActions = new ItemListActions('modules', 'Module', setModules, setIsReady)
+	
+	const moduleSettingsPaths = {
+		Answer: '/answers',
 	}
-
-	const knownUsers = ['airchikee']
 	
 	useEffect(() => {
-		(async () => {
-			const res = await fetch(apiUrl)
-			modules = await res.json()
-			
-			setModules(modules)
-			setIsReady(true)
-		})()
+		itemListActions.set()
 	}, [])
 	
 	return (
 		<div className="table-items-list">
-			<BackBtn/>
+			 
+			<Helmet>
+				<title>Botchikee - Modules</title>
+			</Helmet>
 			<h4>Modules</h4>
 			<MaterializePreloader ready={isReady}>
 				<table className="module-list">
@@ -46,12 +34,14 @@ export default () => {
 							<th>Channels</th>
 						</tr>
 						{modules.map(module => {
-							return <ModuleItem
-								module={module}
-								key={module.id}
-								onChange={changeModule}
-								knownUsers={knownUsers}
-							/>
+							module.settingsPath = moduleSettingsPaths[module.name]
+							
+							return (
+								<ModuleItem
+									module={module}
+									key={module.key}
+								/>
+							)
 						})}
 					</tbody>
 				</table>

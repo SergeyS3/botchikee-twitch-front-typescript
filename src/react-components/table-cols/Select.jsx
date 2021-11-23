@@ -1,6 +1,6 @@
-import React from 'react';
-import {Hover, HoverActive, HoverInactive} from '../Hover';
-import MaterializeSelect from '../materialize/Select';
+import React from 'react'
+import {Hover, HoverActive, HoverInactive} from '../Hover'
+import MaterializeSelect from '../materialize/Select'
 
 export default props => (
 	<td className="table-item-select">

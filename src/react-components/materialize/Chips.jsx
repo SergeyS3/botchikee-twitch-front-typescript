@@ -35,10 +35,12 @@ export default props => {
 			
 			initChips()
 			chips.$input[0].addEventListener('focus', onFocusStart)
+			
+			return () => chips.$input[0].removeEventListener('focus', onFocusStart)
 		}
 		else
 			initChips()
-	}, [])
+	}, [props.items.toString()])
 	
 	return <div className="chips chips-initial" ref={chipsRef} />
 }

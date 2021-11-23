@@ -1,6 +1,6 @@
 
-class Tools {
-	static async fetch(url, method, data = {}) {
+export default class Tools {
+	static async fetch(url, method = 'GET', data = null) {
 		try {
 			return await fetch(url, {
 				method,
@@ -8,7 +8,7 @@ class Tools {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json'
 				},
-				body: data ? JSON.stringify(data) : ''
+				body: data ? JSON.stringify(data) : null
 			})
 		}
 		catch (e) {
@@ -17,5 +17,3 @@ class Tools {
 		 
 	}
 }
-
-module.exports = Tools

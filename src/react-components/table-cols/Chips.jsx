@@ -1,6 +1,6 @@
-import React from 'react';
-import {Hover, HoverActive, HoverInactive} from '../Hover';
-import MaterializeChips from '../materialize/Chips';
+import React from 'react'
+import {Hover, HoverActive, HoverInactive} from '../Hover'
+import MaterializeChips from '../materialize/Chips'
 
 export default props => (
 	<td className="table-item-chips">

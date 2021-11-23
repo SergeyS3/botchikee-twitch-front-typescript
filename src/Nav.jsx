@@ -1,18 +1,18 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 export default ({ OAuthData: { client_id, redirect_uri }, user }) => {
 	const twitchOAuthParams = new URLSearchParams({
 		client_id,
 		redirect_uri,
 		response_type: 'code'
-	});
+	})
 	
 	return (
 		<nav>
 			<div className="nav-wrapper">
 				<div className="col s12">
-					<Link to={'/'} className="brand-logo">Botchikee</Link>
+					<Link to="/" className="brand-logo">Botchikee</Link>
 					<ul className="right hide-on-med-and-down">
 						{user.name
 						?

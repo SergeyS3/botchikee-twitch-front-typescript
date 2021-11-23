@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 
 module.exports = (env, argv) => {
-	const isProd = argv.mode == 'production'
+	const isProd = argv.mode === 'production'
 	
 	const config = {
 		mode: 'development',
@@ -60,7 +60,10 @@ module.exports = (env, argv) => {
 			new MiniCssExtractPlugin({
 				filename: '[contenthash].css'
 			}),
-			new HtmlWebpackPlugin(),
+			new HtmlWebpackPlugin({
+				title: 'Botchikee',
+				favicon: './src/images/favicon.ico'
+			}),
 		],
 		stats: {
 			children: false,

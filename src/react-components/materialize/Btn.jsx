@@ -12,7 +12,7 @@ export default props => {
 	}, [])
 	
 	return (
-		<a className={`btn-floating btn-large scale-transition scale-out ${props.className}`} onClick={props.onClick} ref={addBtnRef}>
+		<a className={`btn-floating scale-transition scale-out ${props.className}`} onClick={props.onClick} ref={addBtnRef}>
 			<i className="material-icons">add</i>
 		</a>
 	)
