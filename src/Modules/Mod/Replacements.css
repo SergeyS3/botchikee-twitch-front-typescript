@@ -1,0 +1,43 @@
+.mod-replacements {
+	display: flex;
+    flex-wrap: wrap;
+}
+.mod-replacement {
+	margin: 4px 25px 15px 0;
+}
+.mod-replacement:not(:last-of-type) .mod-replacement-text:after {
+    content: ',';
+}
+.mod-replacement-text > span {
+    margin: 0 3px;
+}
+.mod-replacement-text:first-child > span:first-child {
+    margin-left: 0;
+}
+.mod-replacement {
+	position: relative;
+}
+.mod-replacement-edit {
+    align-items: center;
+	z-index: 10;
+	margin-left: 50%;
+	transform: translate(-50%);
+	/*display: none;*/display: flex;
+	position: absolute;
+	margin-top: -45px;
+    background-color: #fff;
+    padding: .7rem .4rem;
+}
+input[type=text].mod-replacement-edit-from,
+input[type=text].mod-replacement-edit-to {
+	font-size: 15px;
+	margin: 0 3px;
+}
+input[type=text].mod-replacement-edit-from {
+	width: 45px;
+	text-align: right;
+}
+input[type=text].mod-replacement-edit-to {
+	width: 30px;
+	text-align: left;
+}

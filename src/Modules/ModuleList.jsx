@@ -12,6 +12,7 @@ export default () => {
 	
 	const moduleSettingsPaths = {
 		Answer: '/answers',
+		Mod: '/mod',
 	}
 	
 	useEffect(() => {
@@ -26,7 +27,7 @@ export default () => {
 			</Helmet>
 			<h4>Modules</h4>
 			<MaterializePreloader ready={isReady}>
-				<table className="module-list">
+				<table className="table50p">
 					<tbody>
 						<tr>
 							<th/>

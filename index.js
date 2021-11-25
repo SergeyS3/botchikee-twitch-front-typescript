@@ -39,6 +39,7 @@ app.use(express.urlencoded({extended: true}))
 
 app.use('/', homeRoutes)
 app.use('/answers', homeRoutes)
+app.use('/mod', homeRoutes)
 app.use('/auth', authRoutes)
 
 app.use(errorHandler)

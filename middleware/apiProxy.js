@@ -9,5 +9,7 @@ module.exports = createProxyMiddleware({
 	pathRewrite: {
 		'^/api/modules': '/modules',
 		'^/api/answers': '/answers',
+		'^/api/mod-replacements': '/mod-replacements',
+		'^/api/mod-ban-words': '/mod-ban-words',
 	}
 })
