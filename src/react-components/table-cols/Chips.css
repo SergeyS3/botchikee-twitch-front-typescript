@@ -1,0 +1,3 @@
+.table-item-chips-value:not(:last-of-type):after {
+    content: ', ';
+}

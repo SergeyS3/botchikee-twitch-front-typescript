@@ -14,6 +14,9 @@ export default class Tools {
 		catch (e) {
 			console.error(e)
 		}
-		 
+	}
+	
+	static moveArrayValsToProps(arr) {
+		return arr.reduce((acc, user) => (acc[user] = null, acc), {})
 	}
 }

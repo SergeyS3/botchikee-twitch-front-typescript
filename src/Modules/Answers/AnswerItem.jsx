@@ -54,6 +54,7 @@ export default props => {
 			<Chips
 				active={answer.active}
 				items={answer.users}
+				userIcons={true}
 				hasFocus={focusedCol === 'users'}
 				onFocus={() => setFocusedCol('users')}
 				onBlur={users => itemActions.setVal('users', users)}
