@@ -8,7 +8,8 @@ const { secret } = require('./data/keys').express
 
 const apiRateLimiter = require('./middleware/apiRateLimiter')
 const authMiddleware = require('./middleware/auth')
-const apiProxyMiddleware = require('./middleware/apiProxy')
+const restApiProxyMiddleware = require('./middleware/restApiProxy')
+const wsApiProxyMiddleware = require('./middleware/wsApiProxy')
 const errorHandler = require('./middleware/error')
 
 const homeRoutes = require('./routes/home')
@@ -31,7 +32,8 @@ app.use(session({
 	})
 }))
 
-app.use('/api', apiRateLimiter, authMiddleware, apiProxyMiddleware)
+app.use('/api/rest', apiRateLimiter, authMiddleware, restApiProxyMiddleware)
+app.use('/api/ws', apiRateLimiter, authMiddleware, wsApiProxyMiddleware)
 
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
@@ -40,6 +42,8 @@ app.use(express.urlencoded({extended: true}))
 app.use('/', homeRoutes)
 app.use('/answers', homeRoutes)
 app.use('/mod', homeRoutes)
+app.use('/commands', homeRoutes)
+
 app.use('/auth', authRoutes)
 
 app.use(errorHandler)

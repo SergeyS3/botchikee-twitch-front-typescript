@@ -2,7 +2,7 @@ import React from 'react'
 import {Hover, HoverActive, HoverInactive} from '../Hover'
 
 export default props => (
-	<td className={`table-item-text ${props.long ? 'table-item-text-long' : ''} ${props.value ? '' : 'red-text text-accent-2'}`}>
+	<td className={`table-item-text-input ${props.long ? 'table-item-text-input-long' : ''} ${props.value ? '' : 'red-text text-accent-2'}`}>
 		<Hover hasFocus={props.hasFocus}>
 			<HoverInactive>
 				{props.value || props.placeholder}

@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "./start.sh"
+    "start": "./start.sh",
+    "dev": "nodemon .",
+    "build": "webpack --mode=production"
   },
   "dependencies": {
     "compression": "^1.7.4",

@@ -12,17 +12,19 @@ export default () => {
 
 	const itemListActions = new ItemListActions('mod-replacements', 'Replacement', setReplacements, setIsReady)
 	
-	const addReplacement = () => {
+	const add = () => {
 		itemListActions.add({
-			key: +new Date(),
+			key: +new Date,
 			from: '',
 			to: '',
 		})
 	}
-	const removeReplacement = replacement => itemListActions.remove(replacement)
+	const remove = replacement => itemListActions.remove(replacement)
 	
 	useEffect(() => {
-		itemListActions.set()
+		itemListActions.init()
+		
+		return () => itemListActions.destroy()
 	}, [])
 	
 	return (
@@ -30,16 +32,14 @@ export default () => {
 			<h4>Replacements</h4>
 			<MaterializePreloader ready={isReady}>
 				<div className="mod-replacements">
-					{replacements.map(replacement => {
-						return (
-							<ReplacementItem
-								replacement={replacement}
-								key={replacement.key}
-								onRemove={removeReplacement}
-							/>
-						)
-					})}
-					<MaterializeBtn className="btn-small" onClick={addReplacement} />
+					{replacements.map(replacement => (
+						<ReplacementItem
+							replacement={replacement}
+							key={replacement.key}
+							onRemove={remove}
+						/>
+					))}
+					<MaterializeBtn className="btn-small" onClick={add} />
 				</div>
 			</MaterializePreloader>
 		</>

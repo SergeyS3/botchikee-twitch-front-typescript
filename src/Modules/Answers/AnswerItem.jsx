@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ItemActions from '../../tools/item-actions/ItemActions'
 import Switch from '../../react-components/table-cols/Switch'
 import Select from '../../react-components/table-cols/Select'
@@ -11,11 +11,16 @@ export default props => {
 	
 	const itemActions = new ItemActions('answers', 'Answer', setAnswer, setFocusedCol, ['text', 'answer'])
 	
+	useEffect(() => {
+		if(props.answer !== answer)
+			setAnswer(props.answer)
+	})
+	
 	return (
 		<tr className={answer.active ? '' : 'grey-text text-lighten-1'}>
 			<Switch
 				disabled={!answer.id}
-				defaultChecked={answer.active}
+				checked={answer.active}
 				onChange={e => itemActions.setVal('active', e.target.checked)}
 			/>
 			<Select

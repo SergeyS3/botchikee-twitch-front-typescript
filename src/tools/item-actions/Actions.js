@@ -2,12 +2,12 @@ import Tools from '../Tools'
 
 export default class Actions{
 	constructor(entityApiName, entityDisplayName) {
-		this.apiUrl = `/api/${entityApiName}/`
+		this.entityApiName = entityApiName
 		this.entityDisplayName = entityDisplayName
 	}
 	
 	fetch(path = '', method = 'GET', data = null) {
-		return Tools.fetch(this.apiUrl + path, method, data)
+		return Tools.fetch(`/api/rest/${this.entityApiName}${path}`, method, data)
 	}
 	
 	toast(text, error = false) {

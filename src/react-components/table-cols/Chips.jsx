@@ -1,9 +1,7 @@
 import React from 'react'
 import {Hover, HoverActive, HoverInactive} from '../Hover'
 import MaterializeChips from '../materialize/Chips'
-import Tools from '../../tools/Tools';
-
-import './Chips.css'
+import Tools from '../../tools/Tools'
 
 export default props => {
 	const icons = []
@@ -11,7 +9,7 @@ export default props => {
 		icons.push('$broadcaster', '$mod')
 	
 	return (
-		<td className="table-item-chips">
+		<td className={`table-item-chips ${props.long ? 'table-item-chips-long' : ''}`}>
 			<Hover hasFocus={props.hasFocus}>
 				<HoverInactive>
 					{props.items.length ?
@@ -20,7 +18,7 @@ export default props => {
 							if(icons.includes(item))
 								image = `/images/chip-${item.substr(1)}.png`
 							return (
-								<span className="table-item-chips-value" key={item}>
+								<span className="table-item-list-value" key={item}>
 									{image ? <img src={image} /> : item}
 								</span>
 							)

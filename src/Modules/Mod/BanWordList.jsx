@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import BanWordItem from './BanWordItem'
 import MaterializePreloader from '../../react-components/materialize/Preloader'
 import MaterializeBtn from '../../react-components/materialize/Btn'
-import ItemListActions from "../../tools/item-actions/ItemListActions";
+import ItemListActions from '../../tools/item-actions/ItemListActions'
 
 export default () => {
 	let [banWords, setBanWord] = useState([])
@@ -10,25 +10,27 @@ export default () => {
 	
 	const itemListActions = new ItemListActions('mod-ban-words', 'Ban word', setBanWord, setIsReady)
 	
-	const addBanWord = () => {
+	const add = () => {
 		itemListActions.add({
-			key: +new Date(),
+			key: +new Date,
 			active: false,
 			text: '',
 			channels: [],
 		})
 	}
-	const removeAnswer = banWord => itemListActions.remove(banWord)
+	const remove = banWord => itemListActions.remove(banWord)
 	
 	useEffect(() => {
-		itemListActions.set()
+		itemListActions.init()
+		
+		return () => itemListActions.destroy()
 	}, [])
 	
 	return (
 		<>
 			<h4>Ban words</h4>
 			<MaterializePreloader ready={isReady}>
-				<table className="table50p">
+				<table>
 					<tbody>
 						<tr>
 							<th/>
@@ -36,18 +38,16 @@ export default () => {
 							<th>Channels</th>
 							<th/>
 						</tr>
-						{banWords.map(banWord => {
-							return (
-								<BanWordItem
-									banWord={banWord}
-									key={banWord.key}
-									onRemove={removeAnswer}
-								/>
-							)
-						})}
+						{banWords.map(banWord => (
+							<BanWordItem
+								banWord={banWord}
+								key={banWord.key}
+								onRemove={remove}
+							/>
+						))}
 					</tbody>
 				</table>
-				<MaterializeBtn className="btn-large table-item-add-btn" onClick={addBanWord} />
+				<MaterializeBtn className="btn-large table-item-add-btn" onClick={add} />
 			</MaterializePreloader>
 		</>
 	)

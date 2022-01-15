@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import ItemListActions from '../tools/item-actions/ItemListActions'
-import ModuleItem from './ModuleItem'
+import SubmoduleItem from './SubmoduleItem'
 import MaterializePreloader from '../react-components/materialize/Preloader'
 
 export default () => {
-	let [modules, setModules] = useState([])
+	let [submodules, setSubmodules] = useState([])
 	let [isReady, setIsReady] = useState(false)
 	
-	const itemListActions = new ItemListActions('modules', 'Module', setModules, setIsReady)
+	const itemListActions = new ItemListActions('submodules', 'Submodule', setSubmodules, setIsReady)
 	
-	const moduleSettingsPaths = {
-		Answer: '/answers',
-		Mod: '/mod',
+	const submoduleSettingsPaths = {
+		CommandMsg: '/commands',
 	}
 	
 	useEffect(() => {
@@ -22,20 +21,20 @@ export default () => {
 	
 	return (
 		<>
-			<h4>Modules</h4>
+			<h4>Submodules</h4>
 			<MaterializePreloader ready={isReady}>
 				<table>
 					<tbody>
 						<tr>
 							<th/>
 							<th>Name</th>
-							<th>Channels</th>
+							<th>Parent modules</th>
 						</tr>
-						{modules.map(module => (
-							<ModuleItem
-								module={module}
-								settingsPath={moduleSettingsPaths[module.name]}
-								key={module.key}
+						{submodules.map(submodule => (
+							<SubmoduleItem
+								submodule={submodule}
+								settingsPath={submoduleSettingsPaths[submodule.name]}
+								key={submodule.key}
 							/>
 						))}
 					</tbody>

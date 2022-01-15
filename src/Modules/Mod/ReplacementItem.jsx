@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ItemActions from '../../tools/item-actions/ItemActions'
 import { Hover, HoverActive } from '../../react-components/Hover'
 
@@ -6,7 +6,12 @@ export default props => {
 	const [replacement, setReplacement] = useState(props.replacement)
 	const [focusedCol, setFocusedCol] = useState('')
 	
-	const itemActions = new ItemActions('mod-replacements', 'Replacement', setReplacement, setFocusedCol)
+	const itemActions = new ItemActions('mod-replacements', 'Replacement', setReplacement, setFocusedCol, ['from'])
+	
+	useEffect(() => {
+		if(props.replacement !== replacement)
+			setReplacement(props.replacement)
+	})
 	
 	const getDisplayText = text => {
 		let color

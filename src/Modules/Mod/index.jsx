@@ -5,12 +5,16 @@ import ReplacementList from './ReplacementList'
 import BanWordList from './BanWordList'
 
 export default () => (
-	<div className="table-items-list">
+	<>
 		<Helmet>
 			<title>Botchikee - Mod module settings</title>
 		</Helmet>
-		<BackBtn href="/">Modules</BackBtn>
-		<ReplacementList />
-		<BanWordList />
-	</div>
+		<div className="col">
+			<BackBtn href="/">Modules</BackBtn>
+			<ReplacementList />
+		</div>
+		<div className="table-items-list col s6">
+			<BanWordList />
+		</div>
+	</>
 )

@@ -21,7 +21,8 @@ export default class ItemActions extends Actions{
 			return { ...item }
 		})
 		
-		this.setFocusedCol('')
+		if(this.setFocusedCol)
+			this.setFocusedCol('')
 	}
 	
 	async save(item) {

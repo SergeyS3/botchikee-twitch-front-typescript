@@ -12,9 +12,9 @@ export default () => {
 	
 	const itemListActions = new ItemListActions('answers', 'Answer', setAnswers, setIsReady)
 	
-	const addAnswer = () => {
+	const add = () => {
 		itemListActions.add({
-			key: +new Date(),
+			key: +new Date,
 			active: false,
 			type: 'command',
 			text: '',
@@ -23,10 +23,12 @@ export default () => {
 			users: []
 		})
 	}
-	const removeAnswer = answer => itemListActions.remove(answer)
+	const remove = answer => itemListActions.remove(answer)
 	
 	useEffect(() => {
-		itemListActions.set()
+		itemListActions.init()
+		
+		return () => itemListActions.destroy()
 	}, [])
 	
 	return (
@@ -48,18 +50,16 @@ export default () => {
 							<th>Users</th>
 							<th/>
 						</tr>
-						{answers.map(answer => {
-							return (
-								<AnswerItem
-									answer={answer}
-									key={answer.key}
-									onRemove={removeAnswer}
-								/>
-							)
-						})}
+						{answers.map(answer => (
+							<AnswerItem
+								answer={answer}
+								key={answer.key}
+								onRemove={remove}
+							/>
+						))}
 					</tbody>
 				</table>
-				<MaterializeBtn className="btn-large table-item-add-btn" onClick={addAnswer} />
+				<MaterializeBtn className="btn-large table-item-add-btn" onClick={add} />
 			</MaterializePreloader>
 		</div>
 	)
