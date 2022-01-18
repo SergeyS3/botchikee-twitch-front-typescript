@@ -33,10 +33,10 @@ export default () => {
 				<table>
 					<tbody>
 						<tr>
-							<th/>
-							<th>Text</th>
-							<th>Channels</th>
-							<th/>
+							<th className="table-item-switch"/>
+							<th className="table-item-text-edit table-item-text-edit-long">Text</th>
+							<th className="table-item-chips">Channels</th>
+							<th className="table-item-delete"/>
 						</tr>
 						{banWords.map(banWord => (
 							<BanWordItem

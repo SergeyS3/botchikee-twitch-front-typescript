@@ -1,0 +1,7 @@
+.select-wrapper {
+	width: 95px;
+}
+.select-wrapper input.select-dropdown {
+	margin: -11px 0 -12px;
+	font-size: 15px;
+}

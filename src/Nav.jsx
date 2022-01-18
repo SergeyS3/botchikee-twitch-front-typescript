@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import './Nav.css'
+
 export default ({ OAuthData: { client_id, redirect_uri }, user }) => {
 	const twitchOAuthParams = new URLSearchParams({
 		client_id,

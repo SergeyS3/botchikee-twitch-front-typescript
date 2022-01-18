@@ -26,8 +26,8 @@ export default () => {
 				<table>
 					<tbody>
 						<tr>
-							<th/>
-							<th>Name</th>
+							<th className="table-item-switch"/>
+							<th className="table-item-text">Name</th>
 							<th>Parent modules</th>
 						</tr>
 						{submodules.map(submodule => (

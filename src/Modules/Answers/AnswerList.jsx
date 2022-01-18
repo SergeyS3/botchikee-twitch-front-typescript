@@ -42,13 +42,13 @@ export default () => {
 				<table>
 					<tbody>
 						<tr>
-							<th/>
-							<th>Type</th>
-							<th>Text</th>
-							<th>Answer</th>
-							<th>Channels</th>
-							<th>Users</th>
-							<th/>
+							<th className="table-item-switch"/>
+							<th className="table-item-select">Type</th>
+							<th className="table-item-text-edit">Text</th>
+							<th className="table-item-text-edit table-item-text-edit-long">Answer</th>
+							<th className="table-item-chips">Channels</th>
+							<th className="table-item-chips">Users</th>
+							<th className="table-item-delete"/>
 						</tr>
 						{answers.map(answer => (
 							<AnswerItem

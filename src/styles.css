@@ -1,3 +1,7 @@
+.table-items-list table {
+    table-layout: fixed;
+} 
+
 .table-items-list td {
 	height: 60px;
 }
@@ -5,35 +9,39 @@
 	width: 175px;
 }
 
-.table-item-switch {
+th.table-item-switch {
+	width: 75px;
+}
+th.table-item-select,
+th.table-item-text-edit:not(.table-item-text-edit-long) {
+	width: 125px;
+	max-width: 125px;
+}
+th.table-item-chips:not(.table-item-chips-long) {
+	width: 200px;
+	max-width: 200px;
+}
+th.table-item-text {
+	width: 150px;
+	min-width: 150px;
+	max-width: 150px;
+}
+th.table-item-delete {
 	width: 60px;
 }
 
-.table-item-select,
-.table-item-text-input:not(.table-item-text-input-long) {
-	width: 125px;
-}
-.table-item-select .select-wrapper {
-	width: 95px;
-}
-.table-item-select .select-wrapper input.select-dropdown {
-	margin: -11px 0 -12px;
-	font-size: 15px;
-}
-.table-item-text-input:not(.table-item-text-input-long) input[type=text]:not(.browser-default) {
-	width: 100px !important;
-}
-.table-item-text-input input[type=text]:not(.browser-default) {
+.table-item-text-edit input[type=text]:not(.browser-default) {
 	margin: -11px 0 -11px;
 	font-size: 15px;
 }
-.table-item-text-input .z-depth-3 {
-	margin-left: -.5rem;
-	background-color: #fff;
-	padding: 1.5rem .5rem;
+.table-items-list :nth-child(even) .table-item-text-edit input[type=text]:not(.browser-default) {
+    margin-top: -10px;
+    margin-bottom: -12px;
 }
-.table-item-chips:not(.table-item-chips-long) {
-	width: 175px;
+.table-item-text-edit .z-depth-3 {
+	margin-left: -7px;
+	background-color: #fff;
+	padding: 22px 7px;
 }
 .table-item-chips .z-depth-3 {
 	position: absolute;
@@ -47,12 +55,8 @@
 	min-width: 139px;
 }
 
-.table-item-text {
-	width: 150px;
-}
-
-.table-item-delete {
-	width: 45px;
+td.table-item-delete {
+	text-align: center;
 }
 
 .item-delete {
@@ -64,26 +68,10 @@
 	margin-top: 20px;
 }
 
-.switch label input[type=checkbox][disabled]:checked + .lever {
-    background-color: #bbb;
-}
-.switch label input[type=checkbox][disabled]:not(:checked) + .lever:after {
-    background-color: #eee;
-}
-
 #toast-container {
   top: auto !important;
   right: 20px !important;
   bottom: 20px;
-}
-
-.nav-wrapper li {
-	margin: 0 3px;
-}
-.nav-wrapper .avatar {
-	width: 36px;
-	border-radius: 50%;
-	margin-top: 14px;
 }
 
 .table-item-list-value:not(:last-of-type):after {
@@ -95,4 +83,11 @@
 }
 .material-icons.tiny.arrow {
 	transform: translate(0, 2px);
+}
+
+.hover-component--no-hover {
+	position: relative;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }

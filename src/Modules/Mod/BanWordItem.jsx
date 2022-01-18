@@ -3,6 +3,7 @@ import ItemActions from '../../tools/item-actions/ItemActions'
 import Switch from '../../react-components/table-cols/Switch'
 import Text from '../../react-components/table-cols/Text'
 import Chips from '../../react-components/table-cols/Chips'
+import DeleteBtn from '../../react-components/table-cols/DeleteBtn'
 
 export default props => {
 	const [banWord, setBanWord] = useState(props.banWord)
@@ -37,9 +38,7 @@ export default props => {
 				onFocus={() => setFocusedCol('channels')}
 				onBlur={users => itemActions.setVal('channels', users)}
 			/>
-			<td className="table-item-delete item-delete">
-				<i className="material-icons red-text" onClick={() => props.onRemove(banWord)}>delete</i>
-			</td>
+			<DeleteBtn onClick={() => props.onRemove(banWord)} />
 		</tr>
 	)
 }

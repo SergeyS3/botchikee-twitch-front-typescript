@@ -28,10 +28,10 @@ export default () => {
 				<table>
 					<tbody>
 						<tr>
-							<th/>
-							<th>Text</th>
-							<th>Module</th>
-							<th>Users</th>
+							<th className="table-item-switch"/>
+							<th className="table-item-text">Text</th>
+							<th className="table-item-text">Module</th>
+							<th className="table-item-chips table-item-chips-long">Users</th>
 						</tr>
 						{commands.map(command => (
 							<CommandItem

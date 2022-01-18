@@ -27,9 +27,9 @@ export default () => {
 				<table>
 					<tbody>
 						<tr>
-							<th/>
-							<th>Name</th>
-							<th>Channels</th>
+							<th className="table-item-switch"/>
+							<th className="table-item-text">Name</th>
+							<th className="table-item-chips table-item-chips-long">Channels</th>
 						</tr>
 						{modules.map(module => (
 							<ModuleItem

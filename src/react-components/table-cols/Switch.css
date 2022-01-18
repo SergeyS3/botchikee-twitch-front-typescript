@@ -1,0 +1,6 @@
+.switch label input[type=checkbox][disabled]:checked + .lever {
+    background-color: #bbb;
+}
+.switch label input[type=checkbox][disabled]:not(:checked) + .lever:after {
+    background-color: #eee;
+}

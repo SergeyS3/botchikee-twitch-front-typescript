@@ -4,6 +4,7 @@ import Switch from '../../react-components/table-cols/Switch'
 import Select from '../../react-components/table-cols/Select'
 import Text from '../../react-components/table-cols/Text'
 import Chips from '../../react-components/table-cols/Chips'
+import DeleteBtn from '../../react-components/table-cols/DeleteBtn'
 
 export default props => {
 	const [answer, setAnswer] = useState(props.answer)
@@ -64,9 +65,7 @@ export default props => {
 				onFocus={() => setFocusedCol('users')}
 				onBlur={users => itemActions.setVal('users', users)}
 			/>
-			<td className="table-item-delete item-delete">
-				<i className="material-icons red-text" onClick={() => props.onRemove(answer)}>delete</i>
-			</td>
+			<DeleteBtn onClick={() => props.onRemove(answer)} />
 		</tr>
 	)
 }
