@@ -1,5 +1,5 @@
 import React from 'react'
-import {Hover, HoverActive, HoverInactive} from '../Hover'
+import { Hover, HoverActive, HoverInactive } from '../Hover'
 import MaterializeChips from '../materialize/Chips'
 import Tools from '../../tools/Tools'
 
@@ -24,7 +24,8 @@ export default props => {
 							)
 						})
 					:
-						<div className={`grey-text text-${props.active ? 'darken' : 'lighten'}-1`}>*all*</div>
+						props.emptyLabel
+						|| <div className={`grey-text text-${props.active ? 'darken' : 'lighten'}-1`}>*all*</div>
 					}
 				</HoverInactive>
 				<HoverActive>

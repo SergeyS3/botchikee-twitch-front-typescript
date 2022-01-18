@@ -22,7 +22,7 @@ export default () => {
 			<Helmet>
 				<title>Botchikee - Commands</title>
 			</Helmet>
-			<BackBtn href="/">Modules</BackBtn>
+			<BackBtn href="/modules">Modules</BackBtn>
 			<h4>Commands</h4>
 			<MaterializePreloader ready={isReady}>
 				<table>

@@ -9,8 +9,8 @@ export default () => {
 	
 	const itemListActions = new ItemListActions('submodules', 'Submodule', setSubmodules, setIsReady)
 	
-	const submoduleSettingsPaths = {
-		CommandMsg: '/commands',
+	const paths = {
+		CommandMsg: '/submodules/commands',
 	}
 	
 	useEffect(() => {
@@ -33,7 +33,7 @@ export default () => {
 						{submodules.map(submodule => (
 							<SubmoduleItem
 								submodule={submodule}
-								settingsPath={submoduleSettingsPaths[submodule.name]}
+								path={paths[submodule.name]}
 								key={submodule.key}
 							/>
 						))}

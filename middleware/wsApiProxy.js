@@ -8,6 +8,7 @@ module.exports = createProxyMiddleware({
 	auth: keys.botchikee.auth,
 	ws: true,
 	pathRewrite: {
+		'^/api/ws/settings': '/settings',
 		'^/api/ws/modules': '/modules',
 		'^/api/ws/submodules': '/submodules',
 		'^/api/ws/answers': '/answers',

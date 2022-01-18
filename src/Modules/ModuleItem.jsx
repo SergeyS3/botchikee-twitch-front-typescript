@@ -22,8 +22,8 @@ export default props => {
 				onChange={e => itemActions.setVal('active', e.target.checked)}
 			/>
 			<td className="table-item-text">
-				{props.settingsPath ?
-					<Link to={props.settingsPath}>{module.name}</Link>
+				{props.path ?
+					<Link to={props.path}>{module.name}</Link>
 				:
 					module.name
 				}

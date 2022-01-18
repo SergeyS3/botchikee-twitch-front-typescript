@@ -36,7 +36,7 @@ export default () => {
 			<Helmet>
 				<title>Botchikee - Answer module settings</title>
 			</Helmet>
-			<BackBtn href="/">Modules</BackBtn>
+			<BackBtn href="/modules">Modules</BackBtn>
 			<h4>Answers</h4>
 			<MaterializePreloader ready={isReady}>
 				<table>

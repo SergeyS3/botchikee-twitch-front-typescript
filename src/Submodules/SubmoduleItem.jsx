@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import ItemActions from '../tools/item-actions/ItemActions'
 import { Link } from 'react-router-dom'
 import Switch from '../react-components/table-cols/Switch'
 
@@ -18,8 +17,8 @@ export default props => {
 				checked={submodule.active}
 			/>
 			<td className="table-item-text">
-				{props.settingsPath ?
-					<Link to={props.settingsPath}>{submodule.name}</Link>
+				{props.path ?
+					<Link to={props.path}>{submodule.name}</Link>
 				:
 					submodule.name
 				}

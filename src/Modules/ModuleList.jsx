@@ -9,9 +9,9 @@ export default () => {
 	
 	const itemListActions = new ItemListActions('modules', 'Module', setModules, setIsReady)
 	
-	const moduleSettingsPaths = {
-		Answer: '/answers',
-		Mod: '/mod',
+	const paths = {
+		Answer: '/modules/answers',
+		Mod: '/modules/mod',
 	}
 	
 	useEffect(() => {
@@ -34,7 +34,7 @@ export default () => {
 						{modules.map(module => (
 							<ModuleItem
 								module={module}
-								settingsPath={moduleSettingsPaths[module.name]}
+								path={paths[module.name]}
 								key={module.key}
 							/>
 						))}

@@ -39,10 +39,15 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended: true}))
 
-app.use('/', homeRoutes)
-app.use('/answers', homeRoutes)
-app.use('/mod', homeRoutes)
-app.use('/commands', homeRoutes)
+for(const path of [
+	'/',
+	'/settings',
+	'/modules',
+	'/modules/answers',
+	'/modules/mod',
+	'/submodules/commands',
+])
+	app.use(path, homeRoutes)
 
 app.use('/auth', authRoutes)
 

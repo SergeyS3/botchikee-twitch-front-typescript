@@ -10,7 +10,7 @@ export default () => (
 			<title>Botchikee - Mod module settings</title>
 		</Helmet>
 		<div className="col">
-			<BackBtn href="/">Modules</BackBtn>
+			<BackBtn href="/modules">Modules</BackBtn>
 			<ReplacementList />
 		</div>
 		<div className="table-items-list col s6">

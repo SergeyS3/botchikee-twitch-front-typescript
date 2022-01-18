@@ -1,6 +1,9 @@
 .table-items-list td {
 	height: 60px;
 }
+.table-items-list-vertical th {
+	width: 175px;
+}
 
 .table-item-switch {
 	width: 60px;
@@ -89,4 +92,7 @@
 .table-item-list-value img {
 	margin: 0 1px;
 	transform: translate(0, 3px);
+}
+.material-icons.tiny.arrow {
+	transform: translate(0, 2px);
 }
