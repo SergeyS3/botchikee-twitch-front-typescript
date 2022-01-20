@@ -9,12 +9,9 @@ export default props => {
 	const [banWord, setBanWord] = useState(props.banWord)
 	const [focusedCol, setFocusedCol] = useState('')
 	
-	const itemActions = new ItemActions('mod-ban-words', 'Ban word', setBanWord, setFocusedCol, ['text'])
+	const itemActions = new ItemActions(props.itemListActions, setBanWord, setFocusedCol, ['text'])
 	
-	useEffect(() => {
-		if(props.banWord !== banWord)
-			setBanWord(props.banWord)
-	})
+	useEffect(() => setBanWord(props.banWord), [props.banWord])
 	
 	return (
 		<tr className={banWord.active ? '' : 'grey-text text-lighten-1'}>

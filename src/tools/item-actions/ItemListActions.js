@@ -1,8 +1,13 @@
-import Actions from './Actions'
+import WsWatcher from './wsWatcher'
+import Tools from '../Tools'
 
-export default class ItemListActions extends Actions {
+export default class ItemListActions {
+	watcher = {}
+	wasChangeCalled = false
+	
 	constructor(entityApiName, entityDisplayName, setItems, setIsReady) {
-		super(entityApiName, entityDisplayName)
+		this.entityApiName = entityApiName
+		this.entityDisplayName = entityDisplayName
 		
 		this.setItems = setItems
 		this.setIsReady = setIsReady
@@ -10,11 +15,18 @@ export default class ItemListActions extends Actions {
 	
 	async init() {
 		await this.set()
-		this.setWsWatcher()
+		
+		this.watcher = new WsWatcher(this.entityApiName)
+			.on('change', () => {
+				if(this.wasChangeCalled)
+					this.wasChangeCalled = false
+				else
+					this.set()
+			})
 	}
 	
 	destroy() {
-		this.ws.close(1000)
+		this.watcher.destroy()
 	}
 	
 	async set() {
@@ -51,22 +63,21 @@ export default class ItemListActions extends Actions {
 			
 			this.toast('deleted')
 		}
-			
+		
 		this.setItems(items => items.filter(i => i.key !== item.key))
 	}
 	
-	setWsWatcher() {
-		this.ws = new WebSocket(`${location.origin.replace(/^http/, 'ws')}/api/ws/${this.entityApiName}`);
+	fetch(path = '', method = 'GET', data = null) {
+		if(method !== 'GET')
+			this.wasChangeCalled = true
 		
-		this.ws.onmessage = e => {
-			if(e.data === 'changed')
-				this.set()
-		}
-		this.ws.onclose = e => {
-			if(e.code !== 1000)
-				setTimeout(() => {
-				    this.setWsWatcher();
-				}, 5000);
-		}
+		return Tools.fetch(`/api/rest/${this.entityApiName}${path}`, method, data)
+	}
+	
+	toast(text, error = false) {
+		M.toast({
+			html: `${this.entityDisplayName} ${text}`,
+			classes: error ? 'red darken-1' : 'green darken-1'
+		})
 	}
 }

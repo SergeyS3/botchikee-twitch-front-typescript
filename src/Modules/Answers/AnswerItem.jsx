@@ -10,12 +10,9 @@ export default props => {
 	const [answer, setAnswer] = useState(props.answer)
 	const [focusedCol, setFocusedCol] = useState('')
 	
-	const itemActions = new ItemActions('answers', 'Answer', setAnswer, setFocusedCol, ['text', 'answer'])
+	const itemActions = new ItemActions(props.itemListActions, setAnswer, setFocusedCol, ['text', 'answer'])
 	
-	useEffect(() => {
-		if(props.answer !== answer)
-			setAnswer(props.answer)
-	})
+	useEffect(() => setAnswer(props.answer), [props.answer])
 	
 	return (
 		<tr className={answer.active ? '' : 'grey-text text-lighten-1'}>

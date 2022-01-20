@@ -8,12 +8,9 @@ export default props => {
 	const [module, setModule] = useState(props.module)
 	const [focusedCol, setFocusedCol] = useState('')
 	
-	const itemActions = new ItemActions('modules', 'Module', setModule, setFocusedCol)
+	const itemActions = new ItemActions(props.itemListActions, setModule, setFocusedCol)
 	
-	useEffect(() => {
-		if(props.module !== module)
-			setModule(props.module)
-	})
+	useEffect(() => setModule(props.module), [props.module])
 	
 	return (
 		<tr className={module.active ? '' : 'grey-text text-lighten-1'}>

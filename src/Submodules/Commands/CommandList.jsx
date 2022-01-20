@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import ItemListActions from '../../tools/item-actions/ItemListActions'
 import { Helmet } from 'react-helmet'
 import BackBtn from '../../react-components/BackBtn'
@@ -9,7 +9,7 @@ export default () => {
 	let [commands, setCommands] = useState([])
 	let [isReady, setIsReady] = useState(false)
 	
-	const itemListActions = new ItemListActions('commands', 'Command', setCommands, setIsReady)
+	const itemListActions = useMemo(() => new ItemListActions('commands', 'commands', setCommands, setIsReady), [])
 	
 	useEffect(() => {
 		itemListActions.init()
@@ -35,6 +35,7 @@ export default () => {
 						</tr>
 						{commands.map(command => (
 							<CommandItem
+								itemListActions={itemListActions}
 								command={command}
 								key={command.key}
 							/>

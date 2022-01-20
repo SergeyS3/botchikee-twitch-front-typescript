@@ -6,12 +6,9 @@ export default props => {
 	const [replacement, setReplacement] = useState(props.replacement)
 	const [focusedCol, setFocusedCol] = useState('')
 	
-	const itemActions = new ItemActions('mod-replacements', 'Replacement', setReplacement, setFocusedCol, ['from'])
+	const itemActions = new ItemActions(props.itemListActions, setReplacement, setFocusedCol, ['from'])
 	
-	useEffect(() => {
-		if(props.replacement !== replacement)
-			setReplacement(props.replacement)
-	})
+	useEffect(() => setReplacement(props.replacement), [props.replacement])
 	
 	const getDisplayText = text => {
 		let color

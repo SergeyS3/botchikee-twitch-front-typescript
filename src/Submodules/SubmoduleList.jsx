@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import ItemListActions from '../tools/item-actions/ItemListActions'
 import SubmoduleItem from './SubmoduleItem'
 import MaterializePreloader from '../react-components/materialize/Preloader'
@@ -7,7 +7,7 @@ export default () => {
 	let [submodules, setSubmodules] = useState([])
 	let [isReady, setIsReady] = useState(false)
 	
-	const itemListActions = new ItemListActions('submodules', 'Submodule', setSubmodules, setIsReady)
+	const itemListActions = useMemo(() => new ItemListActions('submodules', 'Submodule', setSubmodules, setIsReady), [])
 	
 	const paths = {
 		CommandMsg: '/submodules/commands',

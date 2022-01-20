@@ -1,11 +1,11 @@
-import Actions from './Actions';
-
-export default class ItemActions extends Actions{
-	constructor(entityApiName, entityDisplayName, setItem, setFocusedCol, requiredFields = []) {
-		super(entityApiName, entityDisplayName)
+export default class ItemActions {
+	constructor(listActions, setItem, setFocusedCol, requiredFields = []) {
 		this.setItem = setItem
 		this.setFocusedCol = setFocusedCol
 		this.requiredFields = requiredFields
+		
+		this.fetch = listActions.fetch.bind(listActions)
+		this.toast = listActions.toast.bind(listActions)
 	}
 	
 	setVal(key, newVal) {

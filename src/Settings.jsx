@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import MaterializePreloader from './react-components/materialize/Preloader'
@@ -9,7 +9,7 @@ export default () => {
 	let [settings, setSettings] = useState([])
 	let [isReady, setIsReady] = useState(false)
 	
-	const itemListActions = new ItemListActions('settings', 'Setting', setSettings, setIsReady)
+	const itemListActions = useMemo(() => new ItemListActions('settings', 'Setting', setSettings, setIsReady), [])
 	
 	useEffect(() => {
 		itemListActions.init()
@@ -27,6 +27,7 @@ export default () => {
 				<h4>Settings</h4>
 				<MaterializePreloader ready={isReady}>
 					<SettingsItem
+						itemListActions={itemListActions}
 						settings={settings[0]}
 					/>
 				</MaterializePreloader>

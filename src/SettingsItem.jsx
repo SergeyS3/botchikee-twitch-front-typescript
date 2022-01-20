@@ -6,12 +6,9 @@ export default props => {
 	let [settings, setSettings] = useState(props.settings)
 	const [focusedCol, setFocusedCol] = useState('')
 	
-	const itemActions = new ItemActions('settings', 'Setting', setSettings, setFocusedCol)
+	const itemActions = new ItemActions(props.itemListActions, setSettings, setFocusedCol)
 	
-	useEffect(() => {
-		if(props.settings !== settings)
-			setSettings(settings)
-	})
+	useEffect(() => setSettings(props.settings), [props.settings])
 	
 	return (
 		<table>

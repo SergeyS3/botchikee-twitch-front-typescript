@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import ItemListActions from '../../tools/item-actions/ItemListActions'
 import MaterializePreloader from '../../react-components/materialize/Preloader'
 import MaterializeBtn from '../../react-components/materialize/Btn'
@@ -9,8 +9,8 @@ import './Replacements.css'
 export default () => {
 	let [replacements, setReplacements] = useState([])
 	let [isReady, setIsReady] = useState(false)
-
-	const itemListActions = new ItemListActions('mod-replacements', 'Replacement', setReplacements, setIsReady)
+	
+	const itemListActions = useMemo(() => new ItemListActions('mod-replacements', 'Replacement', setReplacements, setIsReady), [])
 	
 	const add = () => {
 		itemListActions.add({
@@ -34,6 +34,7 @@ export default () => {
 				<div className="mod-replacements">
 					{replacements.map(replacement => (
 						<ReplacementItem
+							itemListActions={itemListActions}
 							replacement={replacement}
 							key={replacement.key}
 							onRemove={remove}

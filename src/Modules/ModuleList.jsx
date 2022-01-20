@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import ItemListActions from '../tools/item-actions/ItemListActions'
 import ModuleItem from './ModuleItem'
 import MaterializePreloader from '../react-components/materialize/Preloader'
@@ -7,7 +7,7 @@ export default () => {
 	let [modules, setModules] = useState([])
 	let [isReady, setIsReady] = useState(false)
 	
-	const itemListActions = new ItemListActions('modules', 'Module', setModules, setIsReady)
+	const itemListActions = useMemo(() => new ItemListActions('modules', 'Module', setModules, setIsReady), [])
 	
 	const paths = {
 		Answer: '/modules/answers',
@@ -33,6 +33,7 @@ export default () => {
 						</tr>
 						{modules.map(module => (
 							<ModuleItem
+								itemListActions={itemListActions}
 								module={module}
 								path={paths[module.name]}
 								key={module.key}

@@ -7,12 +7,9 @@ export default props => {
 	const [command, setCommand] = useState(props.command)
 	const [focusedCol, setFocusedCol] = useState('')
 	
-	const itemActions = new ItemActions('commands', 'Command', setCommand, setFocusedCol)
+	const itemActions = new ItemActions(props.itemListActions, setCommand, setFocusedCol)
 	
-	useEffect(() => {
-		if(props.command !== command)
-			setCommand(props.command)
-	})
+	useEffect(() => setCommand(props.command), [props.command])
 	
 	return (
 		<tr className={command.active ? '' : 'grey-text text-lighten-1'}>
