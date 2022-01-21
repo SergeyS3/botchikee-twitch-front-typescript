@@ -27,7 +27,7 @@ export default props => {
 	}
 	
 	return (
-		<div className="mod-replacement" key={replacement.key}>
+		<div className="mod-replacement">
 			<Hover hasFocus={focusedCol}>
 				<div className="mod-replacement-text">
 					<span>{getDisplayText(replacement.from)}</span>

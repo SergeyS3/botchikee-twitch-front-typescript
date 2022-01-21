@@ -1,3 +1,7 @@
+a {
+	cursor: pointer;
+}
+
 .table-items-list table {
     table-layout: fixed;
 } 

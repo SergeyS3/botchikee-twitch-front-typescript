@@ -11,6 +11,7 @@ module.exports = createProxyMiddleware({
 		'^/api/rest/modules': '/modules',
 		'^/api/rest/submodules': '/submodules',
 		'^/api/rest/answers': '/answers',
+		'^/api/rest/mod-predefined-replacements': '/mod-predefined-replacements',
 		'^/api/rest/mod-replacements': '/mod-replacements',
 		'^/api/rest/mod-ban-words': '/mod-ban-words',
 		'^/api/rest/commands': '/commands',
