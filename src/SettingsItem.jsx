@@ -18,9 +18,9 @@ export default props => {
 						Connected channels:
 					</th>
 					<Chips
-						active={true}
-						long={true}
-						emptyLabel={<div className={`red-text text-accent-2`}>*add channels*</div>}
+						active
+						long
+						emptyLabel={<div className="red-text text-accent-2">*add channels*</div>}
 						items={settings.channels}
 						hasFocus={focusedCol === 'channels'}
 						onFocus={() => setFocusedCol('channels')}

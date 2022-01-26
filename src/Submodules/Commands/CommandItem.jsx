@@ -14,7 +14,7 @@ export default props => {
 	return (
 		<tr className={command.active ? '' : 'grey-text text-lighten-1'}>
 			<Switch
-				disabled={true}
+				disabled
 				checked={command.active}
 			/>
 			<td className="table-item-text">
@@ -25,9 +25,9 @@ export default props => {
 			</td>
 			<Chips
 				active={command.active}
-				long={true}
+				long
 				items={command.users}
-				userIcons={true}
+				userIcons
 				hasFocus={focusedCol === 'users'}
 				onFocus={() => setFocusedCol('users')}
 				onBlur={users => itemActions.setVal('users', users)}

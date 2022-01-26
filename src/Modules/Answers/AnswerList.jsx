@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import ItemListActions from '../../tools/item-actions/ItemListActions'
-import { Helmet } from 'react-helmet'
 import BackBtn from '../../react-components/BackBtn'
 import AnswerItem from './AnswerItem'
 import MaterializePreloader from '../../react-components/materialize/Preloader'
@@ -14,7 +13,6 @@ export default () => {
 	
 	const add = () => {
 		itemListActions.add({
-			key: +new Date,
 			active: false,
 			type: 'command',
 			text: '',
@@ -26,16 +24,14 @@ export default () => {
 	const remove = answer => itemListActions.remove(answer)
 	
 	useEffect(() => {
-		itemListActions.init()
+		document.title = 'Answer module settings'
 		
+		itemListActions.init()
 		return () => itemListActions.destroy()
 	}, [])
 	
 	return (
 		<div className="table-items-list">
-			<Helmet>
-				<title>Botchikee - Answer module settings</title>
-			</Helmet>
 			<BackBtn href="/modules">Modules</BackBtn>
 			<h4>Answers</h4>
 			<MaterializePreloader ready={isReady}>

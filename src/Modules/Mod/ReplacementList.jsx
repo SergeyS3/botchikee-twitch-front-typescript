@@ -14,7 +14,6 @@ export default () => {
 	
 	const add = () => {
 		itemListActions.add({
-			key: +new Date,
 			from: '',
 			to: '',
 		})
@@ -23,7 +22,6 @@ export default () => {
 	
 	useEffect(() => {
 		itemListActions.init()
-		
 		return () => itemListActions.destroy()
 	}, [])
 	

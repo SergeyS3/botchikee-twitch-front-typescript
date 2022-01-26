@@ -42,7 +42,7 @@ export default props => {
 			<Text
 				value={answer.answer}
 				placeholder="*enter answer*"
-				long={true}
+				long
 				hasFocus={focusedCol === 'answer'}
 				onFocus={() => setFocusedCol('answer')}
 				onBlur={e => itemActions.setVal('answer', e.target.value)}
@@ -57,7 +57,7 @@ export default props => {
 			<Chips
 				active={answer.active}
 				items={answer.users}
-				userIcons={true}
+				userIcons
 				hasFocus={focusedCol === 'users'}
 				onFocus={() => setFocusedCol('users')}
 				onBlur={users => itemActions.setVal('users', users)}

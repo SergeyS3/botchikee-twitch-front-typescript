@@ -23,7 +23,7 @@ export default props => {
 				props.onFocus && props.onFocus()
 			}
 			const onBlur = e => {
-				if(e.path.includes(chipsRef.current))
+				if(e.composedPath().includes(chipsRef.current))
 					return
 				
 				document.removeEventListener('click', onBlur)

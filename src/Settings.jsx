@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import MaterializePreloader from './react-components/materialize/Preloader'
 import ItemListActions from './tools/item-actions/ItemListActions'
@@ -12,16 +11,14 @@ export default () => {
 	const itemListActions = useMemo(() => new ItemListActions('settings', 'Setting', setSettings, setIsReady), [])
 	
 	useEffect(() => {
-		itemListActions.init()
+		document.title = 'Settings'
 		
+		itemListActions.init()
 		return () => itemListActions.destroy()
 	}, [])
 	
 	return (
 		<>
-			<Helmet>
-				<title>Botchikee - Settings</title>
-			</Helmet>
 			 
 			<div className="table-items-list table-items-list-vertical col s6">
 				<h4>Settings</h4>

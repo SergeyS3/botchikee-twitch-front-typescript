@@ -23,7 +23,7 @@ export default props => {
 			<Text
 				value={banWord.text}
 				placeholder="*enter text*"
-				long={true}
+				long
 				hasFocus={focusedCol === 'text'}
 				onFocus={() => setFocusedCol('text')}
 				onBlur={e => itemActions.setVal('text', e.target.value)}

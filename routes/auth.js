@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 	res.json({
 		user: twitchData ? {
 			name: twitchData.display_name,
-			pic: twitchData.profile_image_url,
+			pic: twitchData.profile_image_url.replace('profile_image-300x300', 'profile_image-70x70'),
 			permissionLvl: users[twitchData.login]
 		} : {},
 		OAuthData: {

@@ -26,7 +26,7 @@ export default props => {
 	}, [])
 	
 	return (
-		<select defaultValue={props.defaultValue} onChange={props.onChange} ref={selectRef} >
+		<select defaultValue={props.defaultValue} ref={selectRef} >
 			{props.options.map((option, i) => {
 				return <option key={i + option.value + option.text} value={option.value}>{option.text}</option>
 			})}

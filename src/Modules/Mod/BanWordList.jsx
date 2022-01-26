@@ -12,7 +12,6 @@ export default () => {
 	
 	const add = () => {
 		itemListActions.add({
-			key: +new Date,
 			active: false,
 			text: '',
 			channels: [],
@@ -22,7 +21,6 @@ export default () => {
 	
 	useEffect(() => {
 		itemListActions.init()
-		
 		return () => itemListActions.destroy()
 	}, [])
 	

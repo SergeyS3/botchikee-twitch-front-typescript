@@ -11,19 +11,15 @@ export default props => {
 	useEffect(() => setReplacement(props.replacement), [props.replacement])
 	
 	const getDisplayText = text => {
-		let color
+		let className
 		if(!text) {
-			color = 'grey'
+			className = 'grey-text'
 			text = '<empty>'
 		}
 		else if(/^[а-яА-я]$/.test(text))
-			color = 'orange'
+			className = 'orange-text'
 
-		return color ? (
-			<span className={`${color}-text`}>
-				{text}
-			</span>
-		) : text
+		return <span {...{className}}>{text}</span>
 	}
 	
 	return (

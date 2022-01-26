@@ -27,7 +27,7 @@ export default props => {
 			</td>
 			<Chips
 				active={module.active}
-				long={true}
+				long
 				items={module.channels}
 				hasFocus={focusedCol === 'channels'}
 				onFocus={() => setFocusedCol('channels')}

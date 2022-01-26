@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import ItemListActions from '../../tools/item-actions/ItemListActions'
-import { Helmet } from 'react-helmet'
 import BackBtn from '../../react-components/BackBtn'
 import CommandItem from './CommandItem'
 import MaterializePreloader from '../../react-components/materialize/Preloader'
@@ -9,19 +8,17 @@ export default () => {
 	let [commands, setCommands] = useState([])
 	let [isReady, setIsReady] = useState(false)
 	
-	const itemListActions = useMemo(() => new ItemListActions('commands', 'commands', setCommands, setIsReady), [])
+	const itemListActions = useMemo(() => new ItemListActions('commands', 'Commands', setCommands, setIsReady), [])
 	
 	useEffect(() => {
-		itemListActions.init()
+		document.title = 'Commands submodule settings'
 		
+		itemListActions.init()
 		return () => itemListActions.destroy()
 	}, [])
 	
 	return (
 		<div className="table-items-list col s6">
-			<Helmet>
-				<title>Botchikee - Commands</title>
-			</Helmet>
 			<BackBtn href="/modules">Modules</BackBtn>
 			<h4>Commands</h4>
 			<MaterializePreloader ready={isReady}>

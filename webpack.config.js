@@ -1,14 +1,14 @@
 const path = require('path')
+const glob = require('glob')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const PurgeCSSPlugin = require('purgecss-webpack-plugin')
 
 
 module.exports = (env, argv) => {
-	const isProd = argv.mode === 'production'
-	
 	const config = {
 		mode: 'development',
 		entry: {
@@ -27,14 +27,13 @@ module.exports = (env, argv) => {
 			rules: [
 				{
 					test: /\.jsx$/,
-					exclude: /node_modules/,
 					use: {
 						loader: "babel-loader",
 						options: {
 							presets: ['@babel/preset-react']
 						}
 					}
-				},{
+				}, {
 					test: /\.s[ac]ss$/i,
 					use: [
 						MiniCssExtractPlugin.loader,
@@ -43,7 +42,6 @@ module.exports = (env, argv) => {
 					],
 				}, {
 					test: /\.css$/,
-					exclude: /node_modules/,
 					use: [
 						MiniCssExtractPlugin.loader,
 						'css-loader'
@@ -61,7 +59,7 @@ module.exports = (env, argv) => {
 				filename: '[contenthash].css'
 			}),
 			new HtmlWebpackPlugin({
-				title: 'Botchikee',
+				title: 'Loading...',
 				favicon: './src/images/favicon.ico'
 			}),
 		],
@@ -70,12 +68,14 @@ module.exports = (env, argv) => {
 			version: false,
 			hash: false,
 			modules: false,
-		}
+		},
 	}
 	
-	if(isProd) {
-		config.plugins = [
-			...config.plugins,
+	if(argv.mode === 'production') {
+		config.plugins.push(
+			new PurgeCSSPlugin({
+				paths: glob.sync('./src/**/*.js?(x)', { nodir: true })
+			}),
 			new CssMinimizerPlugin({
 				minimizerOptions: {
 					preset: [ 'default', {
@@ -84,16 +84,23 @@ module.exports = (env, argv) => {
 					}],
 				},
 			}),
-		]
+		)
 		config.optimization = {
 			minimize: true,
 			minimizer: [
 				new TerserPlugin({
+					minify: TerserPlugin.uglifyJsMinify,
 					extractComments: 'false',
 				}),
 			],
 		}
 	}
+	else
+		config.module.rules.push({
+			test: /\.js$/,
+			enforce: 'pre',
+			use: ['source-map-loader'],
+		})
 	
 	return config
 }

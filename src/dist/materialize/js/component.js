@@ -1,6 +1,8 @@
 import './cash'
 import './global'
-import './anime.min'
+import anime from './anime'
+
+M.anime = anime
 
 export default class Component {
   /**

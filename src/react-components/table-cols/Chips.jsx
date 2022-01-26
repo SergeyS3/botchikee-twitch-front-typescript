@@ -1,7 +1,7 @@
 import React from 'react'
 import { Hover, HoverActive, HoverInactive } from '../Hover'
 import MaterializeChips from '../materialize/Chips'
-import Tools from '../../tools/Tools'
+import { moveArrayValsToProps } from '../../tools'
 
 export default props => {
 	const icons = []
@@ -35,7 +35,7 @@ export default props => {
 							onFocus={props.onFocus}
 							onBlur={props.onBlur}
 							autocompleteOptions={{
-								data: Tools.moveArrayValsToProps(icons),
+								data: moveArrayValsToProps(icons),
 								limit: Infinity,
 								minLength: 1
 							}}

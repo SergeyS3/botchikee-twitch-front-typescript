@@ -1,5 +1,5 @@
 import WsWatcher from './wsWatcher'
-import Tools from '../Tools'
+import { _fetch } from '..'
 
 export default class ItemListActions {
 	watcher = {}
@@ -47,7 +47,10 @@ export default class ItemListActions {
 	
 	add(data) {
 		this.setItems(items => {
-			items.push(data)
+			items.push({
+				key: +new Date,
+				...data
+			})
 			return [ ...items ]
 		})
 	}
@@ -71,7 +74,7 @@ export default class ItemListActions {
 		if(method !== 'GET')
 			this.wasChangeCalled = true
 		
-		return Tools.fetch(`/api/rest/${this.entityApiName}${path}`, method, data)
+		return _fetch(`/api/rest/${this.entityApiName}${path}`, method, data)
 	}
 	
 	toast(text, error = false) {

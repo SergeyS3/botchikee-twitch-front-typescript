@@ -1,5 +1,5 @@
-const fetch = require('node-fetch');
-const querystring = require('querystring');
+const fetch = require('node-fetch')
+const querystring = require('querystring')
 const { client_id, client_secret, redirect_uri } = require('../data/keys').twitch
 
 class Twitch {

@@ -10,7 +10,7 @@ export default props => {
 	return (
 		<tr className={submodule.active ? '' : 'grey-text text-lighten-1'}>
 			<Switch
-				disabled={true}
+				disabled
 				checked={submodule.active}
 			/>
 			<td className="table-item-text">

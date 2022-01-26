@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import Tools from './tools/Tools'
+import { _fetch } from './tools'
 import Nav from './Nav'
 import Settings from './Settings'
 import Modules from './Modules'
 import AnswerList from './Modules/Answers/AnswerList'
 import Mod from './Modules/Mod'
 import CommandList from './Submodules/Commands/CommandList'
+import NoAccess from './NoAccess'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import MaterializePreloader from './react-components/materialize/Preloader'
 
@@ -16,7 +17,7 @@ export default () => {
 	
 	useEffect(() => {
 		(async () => {
-			const res = await Tools.fetch('/auth')
+			const res = await _fetch('/auth')
 			setAuthData(await res.json())
 		})()
 	}, [])
@@ -30,14 +31,14 @@ export default () => {
 						{['admin', 'trusted'].includes(authData.user?.permissionLvl)
 							?
 								<Routes>
-									<Route path="/" exact element={<Settings />} />
-									<Route path="/modules" exact element={<Modules />} />
+									<Route path="/" element={<Settings />} />
+									<Route path="/modules" element={<Modules />} />
 									<Route path="/modules/answers" element={<AnswerList />} />
 									<Route path="/modules/mod" element={<Mod />} />
 									<Route path="/submodules/commands" element={<CommandList />} />
 								</Routes>
 							
-							: <h4>You don't have permission to access bot settings</h4>
+							: <NoAccess {...authData}/>
 						}
 					</div>
 				</Router>

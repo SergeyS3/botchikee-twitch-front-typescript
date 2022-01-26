@@ -1,6 +1,6 @@
 
-import './sass/materialize.scss';
-import './materialize.icons.css'
+import './sass/materialize.scss'
+import './icons.css'
 
 import './js/chips'
 import './js/select'

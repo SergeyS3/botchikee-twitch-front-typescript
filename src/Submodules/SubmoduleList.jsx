@@ -15,7 +15,6 @@ export default () => {
 	
 	useEffect(() => {
 		itemListActions.init()
-		
 		return () => itemListActions.destroy()
 	}, [])
 	
