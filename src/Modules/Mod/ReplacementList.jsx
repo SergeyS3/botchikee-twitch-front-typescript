@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import ItemListActions from '../../tools/item-actions/ItemListActions'
+import React from 'react'
+import useItemListActions from '../../hooks/useItemListActions'
 import MaterializePreloader from '../../react-components/materialize/Preloader'
 import MaterializeBtn from '../../react-components/materialize/Btn'
 import ReplacementItem from './ReplacementItem'
@@ -7,23 +7,14 @@ import ReplacementItem from './ReplacementItem'
 import './Replacements.css'
 
 export default () => {
-	let [replacements, setReplacements] = useState([])
-	let [isReady, setIsReady] = useState(false)
-	
-	const itemListActions = useMemo(() => new ItemListActions('mod-replacements', 'Replacement', setReplacements, setIsReady), [])
+	const [replacements, isReady, actions] = useItemListActions('mod-replacements', 'Replacement')
 	
 	const add = () => {
-		itemListActions.add({
+		actions.add({
 			from: '',
 			to: '',
 		})
 	}
-	const remove = replacement => itemListActions.remove(replacement)
-	
-	useEffect(() => {
-		itemListActions.init()
-		return () => itemListActions.destroy()
-	}, [])
 	
 	return (
 		<>
@@ -32,10 +23,10 @@ export default () => {
 				<div className="mod-replacements">
 					{replacements.map(replacement => (
 						<ReplacementItem
-							itemListActions={itemListActions}
+							save={actions.save}
 							replacement={replacement}
 							key={replacement.key}
-							onRemove={remove}
+							onRemove={actions.remove}
 						/>
 					))}
 					<MaterializeBtn className="btn-small" onClick={add} />

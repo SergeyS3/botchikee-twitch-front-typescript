@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import useTitle from '../hooks/useTitle'
 import ModuleList from './ModuleList'
 import SubmoduleList from '../Submodules/SubmoduleList'
 import BackBtn from '../react-components/BackBtn'
 
 export default () => {
-	useEffect(() => {
-		document.title = 'Modules'
-	}, [])
+	useTitle('Modules')
 	
 	return (
 		<>

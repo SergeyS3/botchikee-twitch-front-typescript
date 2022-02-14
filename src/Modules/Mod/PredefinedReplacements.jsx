@@ -1,19 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import ItemListActions from '../../tools/item-actions/ItemListActions'
+import React, { useState } from 'react'
+import useItemListActions from '../../hooks/useItemListActions'
 import MaterializePreloader from '../../react-components/materialize/Preloader'
 
 import './PredefinedReplacements.css'
 
 export default () => {
-	let [replacements, setReplacements] = useState([])
-	let [isReady, setIsReady] = useState(false)
-	let [showAll, setShowAll] = useState(false)
-	
-	const itemListActions = useMemo(() => new ItemListActions('mod-predefined-replacements', 'Predefined replacements', setReplacements, setIsReady), [])
-	
-	useEffect(() => {
-		itemListActions.set()
-	}, [])
+	const [replacements, isReady] = useItemListActions('mod-predefined-replacements', 'Predefined replacements', false)
+	const [showAll, setShowAll] = useState(false)
 	
 	return (
 		<>

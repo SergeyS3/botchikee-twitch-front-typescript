@@ -1,21 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import ItemListActions from '../../tools/item-actions/ItemListActions'
+import React from 'react'
+import useItemListActions from '../../hooks/useItemListActions'
+import useTitle from '../../hooks/useTitle'
 import BackBtn from '../../react-components/BackBtn'
 import CommandItem from './CommandItem'
 import MaterializePreloader from '../../react-components/materialize/Preloader'
 
 export default () => {
-	let [commands, setCommands] = useState([])
-	let [isReady, setIsReady] = useState(false)
+	const [commands, isReady, actions] = useItemListActions('commands', 'Commands')
 	
-	const itemListActions = useMemo(() => new ItemListActions('commands', 'Commands', setCommands, setIsReady), [])
-	
-	useEffect(() => {
-		document.title = 'Commands submodule settings'
-		
-		itemListActions.init()
-		return () => itemListActions.destroy()
-	}, [])
+	useTitle('Commands submodule settings')
 	
 	return (
 		<div className="table-items-list col s6">
@@ -32,7 +25,7 @@ export default () => {
 						</tr>
 						{commands.map(command => (
 							<CommandItem
-								itemListActions={itemListActions}
+								save={actions.save}
 								command={command}
 								key={command.key}
 							/>

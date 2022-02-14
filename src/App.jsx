@@ -13,13 +13,13 @@ import MaterializePreloader from './react-components/materialize/Preloader'
 import './styles.css'
 
 export default () => {
-	let [authData, setAuthData] = useState({})
+	const [authData, setAuthData] = useState({})
 	
 	useEffect(() => {
-		(async () => {
-			const res = await _fetch('/auth')
-			setAuthData(await res.json())
-		})()
+		_fetch('/auth')
+			.then(res =>
+				res.json().then(setAuthData)
+			)
 	}, [])
 	
 	return (

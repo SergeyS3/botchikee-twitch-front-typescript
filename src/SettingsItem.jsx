@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import useItemActions from './hooks/useItemActions'
 import Chips from './react-components/table-cols/Chips'
-import ItemActions from './tools/item-actions/ItemActions'
 
 export default props => {
-	let [settings, setSettings] = useState(props.settings)
+	const [settings, setVal] = useItemActions(props.save, props.settings)
 	const [focusedCol, setFocusedCol] = useState('')
 	
-	const itemActions = new ItemActions(props.itemListActions, setSettings, setFocusedCol)
-	
-	useEffect(() => setSettings(props.settings), [props.settings])
+	const change = (...args) => {
+		setVal(...args)
+		setFocusedCol('')
+	}
 	
 	return (
 		<table>
@@ -24,7 +25,7 @@ export default props => {
 						items={settings.channels}
 						hasFocus={focusedCol === 'channels'}
 						onFocus={() => setFocusedCol('channels')}
-						onBlur={channels => itemActions.setVal('channels', channels)}
+						onBlur={channels => change('channels', channels)}
 					/>
 				</tr>
 			</tbody>

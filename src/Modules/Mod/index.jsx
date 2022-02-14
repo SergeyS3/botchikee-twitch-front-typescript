@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import useTitle from '../../hooks/useTitle'
 import BackBtn from '../../react-components/BackBtn'
 import PredefinedReplacements from './PredefinedReplacements'
 import ReplacementList from './ReplacementList'
 import BanWordList from './BanWordList'
 
 export default () => {
-	useEffect(() => {
-		document.title = 'Mod module settings'
-	}, [])
+	useTitle('Mod module settings')
 	
 	return (
 		<>

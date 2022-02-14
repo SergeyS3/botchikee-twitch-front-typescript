@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React  from 'react'
+import useItemState from '../hooks/useItemState'
 import { Link } from 'react-router-dom'
 import Switch from '../react-components/table-cols/Switch'
 
 export default props => {
-	const [submodule, setSubmodule] = useState(props.submodule)
-	
-	useEffect(() => setSubmodule(props.submodule), [props.submodule])
+	const [submodule] = useItemState(props.submodule)
 	
 	return (
 		<tr className={submodule.active ? '' : 'grey-text text-lighten-1'}>

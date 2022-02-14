@@ -1,28 +1,19 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React from 'react'
+import useItemListActions from '../../hooks/useItemListActions'
 import BanWordItem from './BanWordItem'
 import MaterializePreloader from '../../react-components/materialize/Preloader'
 import MaterializeBtn from '../../react-components/materialize/Btn'
-import ItemListActions from '../../tools/item-actions/ItemListActions'
 
 export default () => {
-	let [banWords, setBanWord] = useState([])
-	let [isReady, setIsReady] = useState(false)
-	
-	const itemListActions = useMemo(() => new ItemListActions('mod-ban-words', 'Ban word', setBanWord, setIsReady), [])
+	const [banWords, isReady, actions] = useItemListActions('mod-ban-words', 'Ban word')
 	
 	const add = () => {
-		itemListActions.add({
+		actions.add({
 			active: false,
 			text: '',
 			channels: [],
 		})
 	}
-	const remove = banWord => itemListActions.remove(banWord)
-	
-	useEffect(() => {
-		itemListActions.init()
-		return () => itemListActions.destroy()
-	}, [])
 	
 	return (
 		<>
@@ -38,10 +29,10 @@ export default () => {
 						</tr>
 						{banWords.map(banWord => (
 							<BanWordItem
-								itemListActions={itemListActions}
+								save={actions.save}
 								banWord={banWord}
 								key={banWord.key}
-								onRemove={remove}
+								onRemove={actions.remove}
 							/>
 						))}
 					</tbody>

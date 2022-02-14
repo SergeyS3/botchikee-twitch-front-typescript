@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import ItemActions from '../tools/item-actions/ItemActions'
+import React, { useState } from 'react'
+import useItemActions from '../hooks/useItemActions'
 import { Link } from 'react-router-dom'
 import Chips from '../react-components/table-cols/Chips'
 import Switch from '../react-components/table-cols/Switch'
 
 export default props => {
-	const [module, setModule] = useState(props.module)
+	const [module, setVal] = useItemActions(props.save, props.module)
 	const [focusedCol, setFocusedCol] = useState('')
 	
-	const itemActions = new ItemActions(props.itemListActions, setModule, setFocusedCol)
-	
-	useEffect(() => setModule(props.module), [props.module])
+	const change = (...args) => {
+		setVal(...args)
+		setFocusedCol('')
+	}
 	
 	return (
 		<tr className={module.active ? '' : 'grey-text text-lighten-1'}>
 			<Switch
 				checked={module.active}
-				onChange={e => itemActions.setVal('active', e.target.checked)}
+				onChange={e => change('active', e.target.checked)}
 			/>
 			<td className="table-item-text">
 				{props.path ?
@@ -31,7 +32,7 @@ export default props => {
 				items={module.channels}
 				hasFocus={focusedCol === 'channels'}
 				onFocus={() => setFocusedCol('channels')}
-				onBlur={channels => itemActions.setVal('channels', channels)}
+				onBlur={channels => change('channels', channels)}
 			/>
 		</tr>
 	)

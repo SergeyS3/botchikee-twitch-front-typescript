@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import ItemActions from '../../tools/item-actions/ItemActions'
+import React, { memo, useState } from 'react'
+import useItemActions from '../../hooks/useItemActions'
 import { Hover, HoverActive } from '../../react-components/Hover'
 
-export default props => {
-	const [replacement, setReplacement] = useState(props.replacement)
+export default memo(props => {
+	const [replacement, setVal] = useItemActions(props.save, props.replacement, ['from'])
 	const [focusedCol, setFocusedCol] = useState('')
 	
-	const itemActions = new ItemActions(props.itemListActions, setReplacement, setFocusedCol, ['from'])
-	
-	useEffect(() => setReplacement(props.replacement), [props.replacement])
+	const change = (...args) => {
+		setVal(...args)
+		setFocusedCol('')
+	}
 	
 	const getDisplayText = text => {
 		let className
@@ -36,7 +37,7 @@ export default props => {
 						className="mod-replacement-edit-from"
 						defaultValue={replacement.from}
 						onFocus={() => setFocusedCol('from')}
-						onBlur={e => itemActions.setVal('from', e.target.value)}
+						onBlur={e => change('from', e.target.value)}
 					/>
 					→
 					<input
@@ -44,11 +45,11 @@ export default props => {
 						className="mod-replacement-edit-to"
 						defaultValue={replacement.to}
 						onFocus={() => setFocusedCol('to')}
-						onBlur={e => itemActions.setVal('to', e.target.value)}
+						onBlur={e => change('to', e.target.value)}
 					/>
 					<i className="material-icons red-text item-delete" onClick={() => props.onRemove(replacement)}>delete</i>
 				</HoverActive>
 			</Hover>
 		</div>
 	)
-}
+})

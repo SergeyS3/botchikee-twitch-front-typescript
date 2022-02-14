@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import ItemListActions from '../../tools/item-actions/ItemListActions'
+import React  from 'react'
+import useItemListActions from '../../hooks/useItemListActions'
+import useTitle from '../../hooks/useTitle'
 import BackBtn from '../../react-components/BackBtn'
 import AnswerItem from './AnswerItem'
 import MaterializePreloader from '../../react-components/materialize/Preloader'
 import MaterializeBtn from '../../react-components/materialize/Btn'
 
 export default () => {
-	let [answers, setAnswers] = useState([])
-	let [isReady, setIsReady] = useState(false)
-	
-	const itemListActions = useMemo(() => new ItemListActions('answers', 'Answer', setAnswers, setIsReady), [])
+	const [answers, isReady, actions] = useItemListActions('answers', 'Answer')
 	
 	const add = () => {
-		itemListActions.add({
+		actions.add({
 			active: false,
 			type: 'command',
 			text: '',
@@ -21,14 +19,8 @@ export default () => {
 			users: []
 		})
 	}
-	const remove = answer => itemListActions.remove(answer)
 	
-	useEffect(() => {
-		document.title = 'Answer module settings'
-		
-		itemListActions.init()
-		return () => itemListActions.destroy()
-	}, [])
+	useTitle('Answer module settings')
 	
 	return (
 		<div className="table-items-list">
@@ -48,10 +40,10 @@ export default () => {
 						</tr>
 						{answers.map(answer => (
 							<AnswerItem
-								itemListActions={itemListActions}
+								save={actions.save}
 								answer={answer}
 								key={answer.key}
-								onRemove={remove}
+								onRemove={actions.remove}
 							/>
 						))}
 					</tbody>
