@@ -12,7 +12,7 @@ module.exports = (env, argv) => {
 	const config = {
 		mode: 'development',
 		entry: {
-			main: './src/index.jsx',
+			main: './src/index.tsx',
 		},
 		output: {
 			filename: '[contenthash].js',
@@ -21,7 +21,7 @@ module.exports = (env, argv) => {
 			path: path.join(__dirname, './public/build')
 		},
 		resolve: {
-			extensions: ['.js', '.jsx']
+			extensions: ['.js', '.jsx', '.ts', '.tsx'] //todo-sem -jsx
 		},
 		module: {
 			rules: [
@@ -34,6 +34,10 @@ module.exports = (env, argv) => {
 						}
 					}
 				}, {
+			        test: /\.tsx?$/,
+			        use: 'ts-loader',
+			        exclude: /node_modules/,
+			    }, {
 					test: /\.s[ac]ss$/i,
 					use: [
 						MiniCssExtractPlugin.loader,
@@ -74,7 +78,7 @@ module.exports = (env, argv) => {
 	if(argv.mode === 'production') {
 		config.plugins.push(
 			new PurgeCSSPlugin({
-				paths: glob.sync('./src/**/*.js?(x)', { nodir: true })
+				paths: glob.sync('./src/**/*.+(j|t)s?(x)', { nodir: true })
 			}),
 			new CssMinimizerPlugin({
 				minimizerOptions: {
